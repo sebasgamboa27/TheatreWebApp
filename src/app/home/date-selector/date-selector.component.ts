@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Presentation } from 'src/app/interfaces/presentation';
 import { Movie } from 'src/app/interfaces/movie';
 import { DatabaseService } from 'src/app/database.service';
@@ -9,7 +9,7 @@ import { IHash } from 'src/app/interfaces/ihash';
   templateUrl: './date-selector.component.html',
   styleUrls: ['./date-selector.component.css']
 })
-export class DateSelectorComponent implements OnInit {
+export class DateSelectorComponent implements OnInit,OnChanges {
 
   presentations: Presentation[];
   orderedTimes;
@@ -18,6 +18,15 @@ export class DateSelectorComponent implements OnInit {
   constructor(private database: DatabaseService) { }
 
   async ngOnInit(): Promise<void> {
+  }
+
+  ngOnChanges(){
+    if(this.movie){
+      this.updatePresentations();
+    }
+  }
+
+  async updatePresentations(){
     this.presentations = await this.database.getPresentationsByMovie(this.movie.ID);
     if (this.presentations.length === 0) return;
 
@@ -45,7 +54,6 @@ export class DateSelectorComponent implements OnInit {
     this.orderedTimes = newPresentations;
 
     console.log(this.orderedTimes);
-
   }
 
 
