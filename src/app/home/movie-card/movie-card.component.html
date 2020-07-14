@@ -1,0 +1,13 @@
+<div class="card">
+  <!-- https://es.web.img3.acsta.net/pictures/18/05/31/13/57/1490959.jpg -->
+  <img src="{{ movie.ImageUrl }}" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{ movie.Name }}
+    </h5>
+    <p class="card-text">
+      {{ movie.Description }}
+    </p>
+    <button type="button" class="btn btn-primary" (click)="buy.emit(movie)">Comprar</button>
+  </div>
+</div>

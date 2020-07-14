@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from 'src/app/database.service';
+import { Movie } from 'src/app/interfaces/movie';
 
 @Component({
   selector: 'app-cartelera',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarteleraComponent implements OnInit {
 
-  constructor() { }
+  movies: Movie[] = [];
 
-  ngOnInit(): void {
+  constructor(private database: DatabaseService) { }
+
+  async ngOnInit(): Promise<void> {
+    this.movies = await this.database.getMovies();
+  }
+
+  showBuyDialog(movie: Movie) {
+    console.log('Aqui va el dialogo de comprar para la pelicula: ' + movie.Name);
   }
 
 }
