@@ -19,6 +19,7 @@ export class CarteleraComponent implements OnInit {
 
   showBuyDialog(movie: Movie) {
     console.log('Aqui va el dialogo de comprar para la pelicula: ' + movie.Name);
+    console.log(movie.ImageURL)
   }
 
 }
