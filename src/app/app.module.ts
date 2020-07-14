@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { CarteleraComponent } from './home/cartelera/cartelera.component';
 import { AdminComponent } from './admin/admin.component';
 import { MovieCardComponent } from './home/movie-card/movie-card.component';
+import { TheatreSelectorComponent } from './home/theatre-selector/theatre-selector.component';
+import { DateSelectorComponent } from './home/date-selector/date-selector.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MovieCardComponent } from './home/movie-card/movie-card.component';
     HomeComponent,
     CarteleraComponent,
     AdminComponent,
-    MovieCardComponent
+    MovieCardComponent,
+    TheatreSelectorComponent,
+    DateSelectorComponent
   ],
   imports: [
     BrowserModule,

@@ -14,12 +14,14 @@ export class CarteleraComponent implements OnInit {
   constructor(private database: DatabaseService) { }
 
   async ngOnInit(): Promise<void> {
-    this.movies = await this.database.getMovies();
+  }
+
+  async displayMovies(theatreID:string):Promise<void>{
+    this.movies = await this.database.getMoviesbyTheater(theatreID);
   }
 
   showBuyDialog(movie: Movie) {
     console.log('Aqui va el dialogo de comprar para la pelicula: ' + movie.Name);
-    console.log(movie.ImageURL)
   }
 
 }

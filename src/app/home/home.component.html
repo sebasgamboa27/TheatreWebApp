@@ -1,3 +1,4 @@
 <!-- <app-barra-principal></app-barra-principal> -->
 
-<app-cartelera></app-cartelera>
+<app-theatre-selector (select)="cartelera.displayMovies($event.ID)"></app-theatre-selector>
+<app-cartelera #cartelera></app-cartelera>
