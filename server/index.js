@@ -33,6 +33,18 @@ app.post('/getMoviesbyTheatre', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/getPresentationsByMovie', async function (req, res) {
+  await sql.connect(dbConnString);
+  const ID = req.body.ID;
+  
+  const result = await sql.query(`
+    select p.Date,p.Hour from Threatre_Schema.Presentation as p
+    WHERE p.ProductionID = ${ ID }
+    ORDER BY p.Date ASC, p.Hour ASC`);
+
+  res.send(result.recordset);
+});
+
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');
 });

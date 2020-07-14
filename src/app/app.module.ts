@@ -10,6 +10,8 @@ import { AdminComponent } from './admin/admin.component';
 import { MovieCardComponent } from './home/movie-card/movie-card.component';
 import { TheatreSelectorComponent } from './home/theatre-selector/theatre-selector.component';
 import { DateSelectorComponent } from './home/date-selector/date-selector.component';
+import { BuyWindowComponent } from './home/buy-window/buy-window.component';
+import { SelectSeatsComponent } from './home/select-seats/select-seats.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { DateSelectorComponent } from './home/date-selector/date-selector.compon
     AdminComponent,
     MovieCardComponent,
     TheatreSelectorComponent,
-    DateSelectorComponent
+    DateSelectorComponent,
+    BuyWindowComponent,
+    SelectSeatsComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Movie } from './interfaces/movie';
 import { Theatre } from './interfaces/theatre';
+import { Presentation } from './interfaces/presentation';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class DatabaseService {
 
   async getMoviesbyTheater(id) {
     return await this.http.post<Movie[]>('http://localhost:3000/getMoviesbyTheatre',{ID:id}).toPromise();
+  }
+
+  async getPresentationsByMovie(id) {
+    return await this.http.post<Presentation[]>('http://localhost:3000/getPresentationsByMovie',{ID:id}).toPromise();
   }
 
 }
