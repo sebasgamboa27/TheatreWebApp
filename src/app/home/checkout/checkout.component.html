@@ -1,2 +1,88 @@
-<p>checkout works!</p>
-<p *ngFor="let ticket of tickets">{{ticket.Row}},{{ticket.Number}}</p>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 67%"></div>
+</div>
+<hr>
+<form>
+  <div class="row">
+    <h2><span class="badge badge-success mr-5 mb-3 ml-5"><i class="fab fa-cc-visa"></i></span></h2>
+    <h2><span class="badge badge-danger mr-5 mb-3 ml-5"><i class="fab fa-cc-mastercard"></i></span></h2>
+    <h2><span class="badge badge-warning mr-5 mb-3 ml-5"><i class="fab fa-cc-discover"></i></span></h2>
+    <h2><span class="badge badge-dark mr-5 mb-3 ml-5"><i class="fab fa-cc-apple-pay"></i></span></h2>
+    <h2><span class="badge badge-info mr-5 mb-3 ml-5"><i class="fab fa-cc-amazon-pay"></i></span></h2>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="validationServer01">Nombre</label>
+      <input type="text" class="form-control" id="validationServer01" required>
+
+      <div class="valid-feedback">
+        Se ve bien!
+      </div>
+      <div class="invalid-feedback">
+        Ingrese un nombre valido.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationServer02">Apellido</label>
+      <input type="text" class="form-control" id="validationServer02" required>
+
+      <div class="valid-feedback">
+        Se ve bien!
+      </div>
+      <div class="invalid-feedback">
+        Ingrese un nombre valido.
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="validationServer03">Numero de Tarjeta</label>
+      <input type="text" class="form-control" id="validationServer03" required>
+
+      <div class="invalid-feedback">
+        Ingrese una tarjeta valida.
+      </div>
+      <div class="valid-feedback">
+        Se ve bien!
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationServer04">Fecha de Vencimiento</label>
+      <select class="custom-select" id="validationServer04" required>
+        <option selected disabled value="">Fecha...</option>
+        <option>...</option>
+      </select>
+
+      <div class="invalid-feedback">
+        Ingrese una fecha valida.
+      </div>
+      <div class="valid-feedback">
+        Se ve bien!
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="validationServer05">Codigo de Seguridad</label>
+      <input type="text" class="form-control" id="validationServer05" required>
+
+      <div class="invalid-feedback">
+        Ingrese un codigo valida.
+      </div>
+      <div class="valid-feedback">
+        Se ve bien!
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" required>
+      <label class="form-check-label" for="invalidCheck3">
+        Aceptar Terminos y Condiciones
+      </label>
+      <div class="invalid-feedback">
+        Debe aceptar antes de continuar.
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Pagar</button>
+</form>
