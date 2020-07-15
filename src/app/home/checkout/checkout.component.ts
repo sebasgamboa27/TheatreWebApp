@@ -9,7 +9,7 @@ import { Seat } from 'src/app/interfaces/seat';
 export class CheckoutComponent implements OnInit {
 
   @Input() tickets: Seat[];
-
+  
   constructor() { }
 
   ngOnInit(): void {
