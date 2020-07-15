@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie';
+import { Seat } from 'src/app/interfaces/seat';
 
 @Component({
   selector: 'app-buy-window',
@@ -9,6 +10,8 @@ import { Movie } from 'src/app/interfaces/movie';
 export class BuyWindowComponent implements OnInit {
 
   currentMovie: Movie;
+  step: number;
+  selectedSeats: Seat[];
 
   constructor() { }
 
@@ -18,6 +21,12 @@ export class BuyWindowComponent implements OnInit {
   show(movie:Movie){
     this.currentMovie = movie;
     ($('#buyModal') as any).modal('show');
+    this.step = 1;
+  }
+
+  displayCheckout(seats: Seat[]){
+    this.selectedSeats = seats;
+    this.step = 2;
   }
 
 }

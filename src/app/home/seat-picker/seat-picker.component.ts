@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Presentation } from 'src/app/interfaces/presentation';
 import { Block } from 'src/app/interfaces/block';
 import { DatabaseService } from 'src/app/database.service';
@@ -16,9 +16,12 @@ export class SeatPickerComponent implements OnInit {
   selectedBlock: Block;
   seats: Seat[]
   occupiedSeats: Seat[];
-  @Input() movie: Movie;
   selectedPresentation: Presentation;
   selectedSeats: Seat[];
+  selectedSeatsLength: number;
+
+  @Input() movie: Movie;
+  @Output() tickets = new EventEmitter<Seat[]>();
 
   constructor(private database: DatabaseService) { }
 
@@ -57,6 +60,7 @@ export class SeatPickerComponent implements OnInit {
 
   resetSelectedSeats(){
     this.selectedSeats = [];
+    this.selectedSeatsLength = 0;
   }
 
   ngOnChanges(){
@@ -96,10 +100,12 @@ export class SeatPickerComponent implements OnInit {
       if(seat.state === 'available'){
         seat.state = 'selected';
         this.selectedSeats.push(seat);
+        this.selectedSeatsLength+=1;
       }
       else{
         seat.state = 'available';
         this.selectedSeats.splice(this.selectedSeats.indexOf(seat),1);
+        this.selectedSeatsLength-=1;
       }
     }
     console.log(this.selectedSeats);

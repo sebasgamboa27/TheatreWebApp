@@ -13,6 +13,7 @@ import { DateSelectorComponent } from './home/date-selector/date-selector.compon
 import { BuyWindowComponent } from './home/buy-window/buy-window.component';
 import { SelectSeatsComponent } from './home/select-seats/select-seats.component';
 import { SeatPickerComponent } from './home/seat-picker/seat-picker.component';
+import { CheckoutComponent } from './home/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SeatPickerComponent } from './home/seat-picker/seat-picker.component';
     DateSelectorComponent,
     BuyWindowComponent,
     SelectSeatsComponent,
-    SeatPickerComponent
+    SeatPickerComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

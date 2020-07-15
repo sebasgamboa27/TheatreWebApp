@@ -22,3 +22,10 @@
   (click)="selectSeat(seat)">
   <i class="fas fa-couch"></i>{{ seat.Row }}{{ seat.Number }}</button>
 </div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+  <button type="button" class="btn btn-primary"
+  (click)="tickets.emit(selectedSeats)">
+  Comprar({{selectedSeatsLength}})</button>
+</div>

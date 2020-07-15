@@ -8,14 +8,13 @@
         </button>
       </div>
       <div *ngIf="currentMovie" class="modal-body">
-        <app-select-seats
+        <span *ngIf="step===1"> <app-select-seats
           [movie]="currentMovie"
-        ></app-select-seats>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Comprar</button>
+          (ticketSelected)="displayCheckout($event)"
+        ></app-select-seats> </span>
+        <span *ngIf="step===2">
+          <app-checkout [tickets]="selectedSeats"></app-checkout>
+        </span>   
       </div>
     </div>
   </div>
