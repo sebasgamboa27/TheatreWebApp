@@ -1,0 +1,16 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle mb-2" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+    <span *ngIf="!selectedBlock">Seleccione un Bloque</span>
+    {{ selectedBlock?.BlockName }} 
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <button class="dropdown-item" type="button"
+    *ngFor="let block of blocks"
+    (click)="updateSelectedBlock(block)"
+    >{{ block.BlockName }}</button>
+  </div>
+</div>
+
+<div>
+  <button *ngFor="let seat of seats" type="button" class="btn btn-outline-primary btn-sm">{{ seat.Row }}{{ seat.Number }}</button>
+</div>

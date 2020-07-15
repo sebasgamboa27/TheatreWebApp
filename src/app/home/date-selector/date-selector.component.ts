@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Presentation } from 'src/app/interfaces/presentation';
 import { Movie } from 'src/app/interfaces/movie';
 import { DatabaseService } from 'src/app/database.service';
@@ -15,6 +15,9 @@ export class DateSelectorComponent implements OnInit,OnChanges {
   orderedTimes;
   @Input() movie: Movie;
 
+  selectedPresentation: Presentation;
+  @Output() selected = new EventEmitter<Presentation>();
+
   constructor(private database: DatabaseService) { }
 
   async ngOnInit(): Promise<void> {
@@ -26,11 +29,14 @@ export class DateSelectorComponent implements OnInit,OnChanges {
     }
   }
 
+  selectPresentation(presentation:Presentation){
+    this.selectedPresentation = presentation;
+    this.selected.emit(presentation);
+  }
+
   async updatePresentations(){
     this.presentations = await this.database.getPresentationsByMovie(this.movie.ID);
     if (this.presentations.length === 0) return;
-
-    debugger;
 
     let day = new Date(this.presentations[0].Date).getDay();
     let currentTimes = [];
@@ -52,8 +58,6 @@ export class DateSelectorComponent implements OnInit,OnChanges {
     }
 
     this.orderedTimes = newPresentations;
-
-    console.log(this.orderedTimes);
   }
 
 

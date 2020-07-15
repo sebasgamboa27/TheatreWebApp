@@ -12,6 +12,7 @@ import { TheatreSelectorComponent } from './home/theatre-selector/theatre-select
 import { DateSelectorComponent } from './home/date-selector/date-selector.component';
 import { BuyWindowComponent } from './home/buy-window/buy-window.component';
 import { SelectSeatsComponent } from './home/select-seats/select-seats.component';
+import { SeatPickerComponent } from './home/seat-picker/seat-picker.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SelectSeatsComponent } from './home/select-seats/select-seats.component
     TheatreSelectorComponent,
     DateSelectorComponent,
     BuyWindowComponent,
-    SelectSeatsComponent
+    SelectSeatsComponent,
+    SeatPickerComponent
   ],
   imports: [
     BrowserModule,

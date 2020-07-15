@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie';
+import { Presentation } from 'src/app/interfaces/presentation';
 
 @Component({
   selector: 'app-select-seats',

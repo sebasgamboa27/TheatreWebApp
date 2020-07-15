@@ -38,9 +38,33 @@ app.post('/getPresentationsByMovie', async function (req, res) {
   const ID = req.body.ID;
   
   const result = await sql.query(`
-    select p.Date,p.Hour from Threatre_Schema.Presentation as p
+    select p.Date,p.Hour,p.ProductionID from Threatre_Schema.Presentation as p
     WHERE p.ProductionID = ${ ID }
     ORDER BY p.Date ASC, p.Hour ASC`);
+
+  res.send(result.recordset);
+});
+
+app.post('/getBlocksbyMovie', async function (req, res) {
+  await sql.connect(dbConnString);
+  const productionID = req.body.ProductionID;
+  
+  const result = await sql.query(`
+    select b.BlockName,b.TheaterID,b.BlockID
+    from Threatre_Schema.SeatBlocks as b,Threatre_Schema.Production as pro
+    WHERE pro.ID = ${ productionID } AND pro.TheaterID = b.TheaterID`);
+
+  res.send(result.recordset);
+});
+
+app.post('/getSeatsbyBlock', async function (req, res) {
+  await sql.connect(dbConnString);
+  const BlockID = req.body.BlockID;
+  
+  const result = await sql.query(`
+    select s.Row,s.Number 
+    from Threatre_Schema.Seats as s
+    WHERE s.BlockID = ${ BlockID }`);
 
   res.send(result.recordset);
 });

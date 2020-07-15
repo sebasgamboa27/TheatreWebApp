@@ -2,5 +2,12 @@
   <h5>
     {{ day[0].Date | date:'EEEE, MMMM d' }}
   </h5>
-  <button type="button" *ngFor="let presentation of day" class="btn btn-outline-secondary mr-1 mb-1">{{presentation.Hour | date:'shortTime'}}</button>
+  <button
+    type="button"
+    *ngFor="let presentation of day"
+    class="btn btn-outline-secondary mr-1 mb-1"
+    [class.active]="presentation === selectedPresentation"
+    (click)="selectPresentation(presentation)">
+    {{presentation.Hour | date:'shortTime'}}
+  </button>
 </div>

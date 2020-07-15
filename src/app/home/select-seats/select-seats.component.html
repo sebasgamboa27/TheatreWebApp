@@ -1,3 +1,11 @@
+
 <app-date-selector
-[movie]="movie"
+  [movie]="movie"
+  (selected)="seatPicker.refreshSeats($event)"
 ></app-date-selector>
+<hr>
+<app-seat-picker 
+[movie]="movie"
+#seatPicker></app-seat-picker>
+
+
