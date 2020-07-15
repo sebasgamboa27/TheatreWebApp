@@ -15,6 +15,7 @@ export class SeatPickerComponent implements OnInit {
   blocks: Block[];
   selectedBlock: Block;
   seats: Seat[]
+  occupiedSeats: Seat[];
   @Input() movie: Movie;
 
   constructor(private database: DatabaseService) { }
@@ -37,8 +38,22 @@ export class SeatPickerComponent implements OnInit {
     }
   }
 
-  refreshSeats(presentation:Presentation){
-    console.log("ya casi wey");
+  async refreshSeats(presentation:Presentation){
+    debugger;
+    this.occupiedSeats = await this.database.getOccupiedSeats(this.selectedBlock.BlockID,presentation.PresentationID);
+
+    this.seats.forEach(seat => {
+      seat.state = this.getSeatState(seat);
+    });
   }
 
+  getSeatState(seat: Seat) :string{
+    for (let i = 0; i < this.occupiedSeats.length; i++) {
+      if(seat.Number === this.occupiedSeats[i].Number && seat.Row === this.occupiedSeats[i].Row){
+        return 'occupied'
+      }
+    }
+    return 'available'
+
+  }
 }

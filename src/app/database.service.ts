@@ -41,4 +41,8 @@ export class DatabaseService {
     return await this.http.post<Seat[]>('http://localhost:3000/getSeatsbyBlock',{BlockID:blockID}).toPromise();
   }
 
+  async getOccupiedSeats(blockID: string,presentationID: string) {
+    return await this.http.post<Seat[]>('http://localhost:3000/getOccupiedSeats',{BlockID:blockID,PresentationID:presentationID}).toPromise();
+  }
+
 }
