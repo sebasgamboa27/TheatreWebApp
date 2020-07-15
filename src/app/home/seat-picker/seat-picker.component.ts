@@ -17,6 +17,7 @@ export class SeatPickerComponent implements OnInit {
   seats: Seat[]
   occupiedSeats: Seat[];
   @Input() movie: Movie;
+  selectedPresentation: Presentation;
 
   constructor(private database: DatabaseService) { }
 
@@ -30,21 +31,38 @@ export class SeatPickerComponent implements OnInit {
   async updateSelectedBlock(block:Block){
     this.selectedBlock = block;
     this.seats = await this.database.getSeatsbyBlock(this.selectedBlock.BlockID);
+    if(this.selectedPresentation){
+      this.refreshSeats(this.selectedPresentation)
+    }
+
+  }
+
+  reset(){
+    this.blocks = [];
+    this.selectedBlock = null;
+    this.seats = [];
+    this.occupiedSeats = [];
+    this.selectedPresentation = null;
   }
 
   ngOnChanges(){
     if(this.movie){
+      this.reset();
       this.loadBlocks();
     }
   }
 
   async refreshSeats(presentation:Presentation){
-    debugger;
-    this.occupiedSeats = await this.database.getOccupiedSeats(this.selectedBlock.BlockID,presentation.PresentationID);
 
-    this.seats.forEach(seat => {
-      seat.state = this.getSeatState(seat);
-    });
+    this.selectedPresentation = presentation;
+
+    if(this.selectedBlock){
+      this.occupiedSeats = await this.database.getOccupiedSeats(this.selectedBlock.BlockID,presentation.PresentationID);
+
+      this.seats.forEach(seat => {
+        seat.state = this.getSeatState(seat);
+      });
+    }
   }
 
   getSeatState(seat: Seat) :string{

@@ -14,7 +14,9 @@
 <div>
   <button *ngFor="let seat of seats" 
   type="button" 
-  class="btn btn-outline-primary btn-sm"
-  [class.disabled]="seat.state === 'occupied'">
+  class="btn btn-sm"
+  [class.disabled]="seat.state === 'occupied'"
+  [class.btn-danger]="seat.state === 'occupied'"
+  [class.btn-outline-primary]="seat.state != 'occupied'">
   <i class="fas fa-couch"></i>{{ seat.Row }}{{ seat.Number }}</button>
 </div>
