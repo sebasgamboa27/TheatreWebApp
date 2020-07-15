@@ -18,6 +18,7 @@ export class SeatPickerComponent implements OnInit {
   occupiedSeats: Seat[];
   @Input() movie: Movie;
   selectedPresentation: Presentation;
+  selectedSeats: Seat[];
 
   constructor(private database: DatabaseService) { }
 
@@ -29,12 +30,20 @@ export class SeatPickerComponent implements OnInit {
   }
 
   async updateSelectedBlock(block:Block){
+    this.resetSelectedSeats();
     this.selectedBlock = block;
     this.seats = await this.database.getSeatsbyBlock(this.selectedBlock.BlockID);
+    this.refreshStates();
     if(this.selectedPresentation){
       this.refreshSeats(this.selectedPresentation)
     }
 
+  }
+
+  refreshStates(){
+    this.seats.forEach(seat => {
+      seat.state = 'available';
+    });
   }
 
   reset(){
@@ -43,6 +52,11 @@ export class SeatPickerComponent implements OnInit {
     this.seats = [];
     this.occupiedSeats = [];
     this.selectedPresentation = null;
+    this.resetSelectedSeats();
+  }
+
+  resetSelectedSeats(){
+    this.selectedSeats = [];
   }
 
   ngOnChanges(){
@@ -53,6 +67,8 @@ export class SeatPickerComponent implements OnInit {
   }
 
   async refreshSeats(presentation:Presentation){
+
+    this.resetSelectedSeats();
 
     this.selectedPresentation = presentation;
 
@@ -74,4 +90,20 @@ export class SeatPickerComponent implements OnInit {
     return 'available'
 
   }
+
+  selectSeat(seat:Seat){
+    if(seat.state!='occupied'){
+      if(seat.state === 'available'){
+        seat.state = 'selected';
+        this.selectedSeats.push(seat);
+      }
+      else{
+        seat.state = 'available';
+        this.selectedSeats.splice(this.selectedSeats.indexOf(seat),1);
+      }
+    }
+    console.log(this.selectedSeats);
+  }
+
+
 }
