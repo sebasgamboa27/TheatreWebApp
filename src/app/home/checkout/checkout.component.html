@@ -1,5 +1,5 @@
 <div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 67%"></div>
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
 </div>
 <hr>
 <form>
@@ -90,3 +90,32 @@
   type="button"
   >Pagar</button>
 </form>
+<hr>
+<span *ngIf="receiptState"><table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Order Summary</th>
+      <th scope="col">Date</th>
+      <th scope="col">Hour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">x{{tickets.length}} Seats</th>
+      <td>{{presentation.Date | date:'EEEE, MMMM d'}}</td>
+      <td>{{presentation.Hour | date:'shortTime'}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Total</th>
+      <td></td>
+      <td>₡{{priceToPay}}</td>
+    </tr>
+  </tbody>
+</table></span>
+
+<span *ngIf="cardRejected">
+  <div class="alert alert-danger" role="alert">
+    Your card was rejected, try again.
+  </div>
+</span>

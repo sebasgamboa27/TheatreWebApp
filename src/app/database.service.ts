@@ -6,6 +6,7 @@ import { Presentation } from './interfaces/presentation';
 import { Block } from './interfaces/block';
 import { Seat } from './interfaces/seat';
 import { Prices } from './interfaces/price';
+import { ReceiptID } from './interfaces/receiptID';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,16 @@ export class DatabaseService {
 
   async getPricebySeat(ticket: string, blockID:string) {
     return await this.http.post<Prices>('http://localhost:3000/getPricebySeat',{SeatID:ticket,BlockID:blockID}).toPromise();
+  }
+
+  async insertReceipt(date:string) {
+    let apCode = Math.floor(Math.random() * (+3000 - +1)) + +1; 
+    let ClientID = Math.floor(Math.random() * (+5 - +1)) + +1; 
+    return await this.http.post<ReceiptID>('http://localhost:3000/insertReceipt',{Date:date,ApprobationCode:apCode,ClientID:ClientID}).toPromise();
+  }
+
+  async insertBookings(presentationID: string, paymentID:string,SeatID:string) {
+    return await this.http.post<ReceiptID>('http://localhost:3000/insertBookings',{PresentationID:presentationID,PaymentID:paymentID,SeatID:SeatID}).toPromise();
   }
 
 }

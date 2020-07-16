@@ -100,6 +100,32 @@ app.post('/getPricebySeat', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/insertReceipt', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Date = req.body.Date;
+  const ApprobationCode = req.body.ApprobationCode;
+  const ClientID = req.body.ClientID;
+  
+  const result = await sql.query(`
+  INSERT INTO Threatre_Schema.Receipts
+  OUTPUT INSERTED.ID
+  VALUES (${ Date }, ${ ApprobationCode }, ${ ClientID })`);
+
+  res.send(result.recordset);
+});
+
+
+app.post('/insertBookings', async function (req, res) {
+  await sql.connect(dbConnString);
+  const PresentationID = req.body.PresentationID;
+  const PaymentID = req.body.PaymentID;
+  const SeatID = req.body.SeatID;
+  
+  const result = await sql.query(`
+  INSERT INTO Threatre_Schema.SeatPresentationBookings
+  VALUES (${ PresentationID }, ${ PaymentID }, ${ SeatID })`);
+  res.send(result.recordset);
+});
 
 
 app.listen(3000, function () {
