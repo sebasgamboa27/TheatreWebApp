@@ -11,9 +11,11 @@
         <span *ngIf="step===1"> <app-select-seats
           [movie]="currentMovie"
           (ticketSelected)="displayCheckout($event)"
+          (presentationSelected)="savePresentation($event)"
         ></app-select-seats> </span>
         <span *ngIf="step===2">
-          <app-checkout [tickets]="selectedSeats"></app-checkout>
+          <app-checkout [tickets]="selectedSeats" 
+          [presentation]="selectedPresentation"></app-checkout>
         </span>   
       </div>
     </div>

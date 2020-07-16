@@ -13,6 +13,8 @@ export class SelectSeatsComponent implements OnInit {
   @Input() movie: Movie;
   selectedSeats: Seat[];
   @Output() ticketSelected = new EventEmitter<Seat[]>();
+  @Output() presentationSelected = new EventEmitter<Presentation>();
+  selectedPresentation: Presentation;
 
   constructor() { }
 
@@ -22,6 +24,11 @@ export class SelectSeatsComponent implements OnInit {
   saveSelectedSeats(seats:Seat[]){
     this.selectedSeats = seats;
     this.ticketSelected.emit(this.selectedSeats);
+  }
+
+  savePresentation(presentation:Presentation){
+    this.selectedPresentation = presentation;
+    this.presentationSelected.emit(this.selectedPresentation);
   }
 
 }

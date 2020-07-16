@@ -5,6 +5,7 @@
 <app-date-selector
   [movie]="movie"
   (selected)="seatPicker.refreshSeats($event)"
+  (emitPresentation)="savePresentation($event)"
 ></app-date-selector>
 <hr>
 <app-seat-picker 

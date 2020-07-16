@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie';
 import { Seat } from 'src/app/interfaces/seat';
+import { Presentation } from 'src/app/interfaces/presentation';
 
 @Component({
   selector: 'app-buy-window',
@@ -12,6 +13,7 @@ export class BuyWindowComponent implements OnInit {
   currentMovie: Movie;
   step: number;
   selectedSeats: Seat[];
+  selectedPresentation: Presentation;
 
   constructor() { }
 
@@ -27,6 +29,10 @@ export class BuyWindowComponent implements OnInit {
   displayCheckout(seats: Seat[]){
     this.selectedSeats = seats;
     this.step = 2;
+  }
+
+  savePresentation(presentaton: Presentation){
+    this.selectedPresentation = presentaton;
   }
 
 }

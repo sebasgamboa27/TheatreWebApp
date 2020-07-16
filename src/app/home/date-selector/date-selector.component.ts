@@ -17,6 +17,7 @@ export class DateSelectorComponent implements OnInit,OnChanges {
 
   selectedPresentation: Presentation;
   @Output() selected = new EventEmitter<Presentation>();
+  @Output() emitPresentation = new EventEmitter<Presentation>();
 
   constructor(private database: DatabaseService) { }
 
@@ -32,6 +33,7 @@ export class DateSelectorComponent implements OnInit,OnChanges {
   selectPresentation(presentation:Presentation){
     this.selectedPresentation = presentation;
     this.selected.emit(presentation);
+    this.emitPresentation.emit(presentation);
   }
 
   async updatePresentations(){
