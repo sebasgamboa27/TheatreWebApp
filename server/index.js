@@ -12,13 +12,13 @@ app.use(bodyParser.json());
 
 app.get('/getMovies', async function (req, res) {
   await sql.connect(dbConnString);
-  const result = await sql.query('select * from Threatre_Schema.Production');
+  const result = await sql.query('select * from Threatre_Schema.Production');  //Sustituir por EXEC uspProductionsRead
   res.send(result.recordset);
 });
 
 app.get('/getTheatres', async function (req, res) {
   await sql.connect(dbConnString);
-  const result = await sql.query('select * from Threatre_Schema.Theater');
+  const result = await sql.query('select * from Threatre_Schema.Theater');   //Sustituir por EXEC uspTheatersRead
   res.send(result.recordsets[0]);
 });
 
@@ -28,7 +28,7 @@ app.post('/getMoviesbyTheatre', async function (req, res) {
   
   const result = await sql.query(`
     select * from Threatre_Schema.Production
-    WHERE Threatre_Schema.Production.TheaterID = ${ ID }`);
+    WHERE Threatre_Schema.Production.TheaterID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
 
   res.send(result.recordset);
 });
@@ -39,8 +39,8 @@ app.post('/getPresentationsByMovie', async function (req, res) {
   
   const result = await sql.query(`
     select p.Date,p.Hour,p.ProductionID,p.PresentationID from Threatre_Schema.Presentation as p
-    WHERE p.ProductionID = ${ ID }
-    ORDER BY p.Date ASC, p.Hour ASC`);
+    WHERE p.ProductionID = ${ ID }                                        
+    ORDER BY p.Date ASC, p.Hour ASC`);                     //Sustituir por EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }
 
   res.send(result.recordset);
 });
@@ -53,7 +53,7 @@ app.post('/getBlocksbyMovie', async function (req, res) {
     select b.BlockName,b.TheaterID,b.BlockID
     from Threatre_Schema.SeatBlocks as b,Threatre_Schema.Production as pro
     WHERE pro.ID = ${ productionID } AND pro.TheaterID = b.TheaterID`);
-
+                                                //Sustituir por EXEC uspGetBlocksByProduction @PRODUCTIONID = ${ productionID }
   res.send(result.recordset);
 });
 
@@ -62,9 +62,9 @@ app.post('/getSeatsbyBlock', async function (req, res) {
   const BlockID = req.body.BlockID;
   
   const result = await sql.query(`
-    select s.Row,s.Number,s.SeatID,s.BlockID
+    select s.Row,s.Number,s.SeatID,s.BlockID   
     from Threatre_Schema.Seats as s
-    WHERE s.BlockID = ${ BlockID }`);
+    WHERE s.BlockID = ${ BlockID }`);  //Sustituir por EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }
 
   res.send(result.recordset);
 });
@@ -80,7 +80,7 @@ app.post('/getOccupiedSeats', async function (req, res) {
     WHERE s.BlockID = ${ BlockID } AND
     s.SeatID = spb.SeatID AND
     spb.PresentationID = ${ PresentationID }`);
-
+                          //Sustituir por EXEC uspGetOccupiedSeats @BLOCKID = ${ BlockID },@PresentationID = ${ PresentationID }
   res.send(result.recordset);
 });
 
@@ -96,7 +96,7 @@ app.post('/getPricebySeat', async function (req, res) {
     WHERE s.BlockID = ${ BlockID } AND
     pbp.BlockID =  ${ BlockID } AND
     s.SeatID = ${ SeatID }`);
-
+        //Sustituir por EXEC uspGetPriceBySeat @BLOCKID = ${ BlockID } ,@SEATID = ${ SeatID }
   res.send(result.recordset);
 });
 
@@ -110,7 +110,7 @@ app.post('/insertReceipt', async function (req, res) {
   INSERT INTO Threatre_Schema.Receipts
   OUTPUT INSERTED.ID
   VALUES (${ Date }, ${ ApprobationCode }, ${ ClientID })`);
-
+          // Sustituir por EXEC uspReceiptsInsert @Date = ${ Date } ,@CODE =${ ApprobationCode } ,@CLIENTID= ${ ClientID }
   res.send(result.recordset);
 });
 
@@ -124,6 +124,7 @@ app.post('/insertBookings', async function (req, res) {
   const result = await sql.query(`
   INSERT INTO Threatre_Schema.SeatPresentationBookings
   VALUES (${ PresentationID }, ${ PaymentID }, ${ SeatID })`);
+        //Sustituir por EXEC uspBookingsInsert @SEATID = ${ SeatID } ,@PAYMENTID =${ PaymentID } ,@PRESENTATIONID= ${ PresentationID }
   res.send(result.recordset);
 });
 
