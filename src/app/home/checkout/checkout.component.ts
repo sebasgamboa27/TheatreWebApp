@@ -3,6 +3,7 @@ import { Seat } from 'src/app/interfaces/seat';
 import { DatabaseService } from 'src/app/database.service';
 import { Prices } from 'src/app/interfaces/price';
 import { Presentation } from 'src/app/interfaces/presentation';
+import { EmployeeServiceService } from 'src/app/employee-service.service';
 
 @Component({
   selector: 'app-checkout',
@@ -17,13 +18,15 @@ export class CheckoutComponent implements OnInit {
   @Input() presentation: Presentation;
   receiptState: boolean;
   cardRejected: boolean;
+  loginState: boolean;
 
-  constructor(private database: DatabaseService){}
+  constructor(private database: DatabaseService,private employeeService: EmployeeServiceService){}
 
 
   ngOnInit(): void {
     this.getAmountToPay(this.tickets);
     this.receiptState = false;
+    this.checkEmployeeService();
   }
 
   async getAmountToPay(tickets: Seat[]){
@@ -31,6 +34,15 @@ export class CheckoutComponent implements OnInit {
     debugger;
     if(this.totalPrices != null){
       this.priceToPay = this.totalPrices[0].price * this.tickets.length;
+    }
+  }
+
+  checkEmployeeService(){
+    if(this.employeeService.loginState){
+      this.loginState = true;
+    }
+    else{
+      this.loginState = false;
     }
   }
 
@@ -43,11 +55,10 @@ export class CheckoutComponent implements OnInit {
     console.log(randomNumber);
 
     if(randomNumber%2 === this.priceToPay%2){
-      debugger;
       this.cardRejected = false;
       this.receiptState = !this.receiptState;
       this.tickets.forEach(async seat => {
-        let date = new Date(this.presentation.Date);
+        let date = new Date();
         let year = date.getFullYear().toString();
         let month = date.getMonth().toString();
         let day = date.getDate().toString();
@@ -63,4 +74,21 @@ export class CheckoutComponent implements OnInit {
       this.cardRejected = true;
     }
   }
+
+  makePaymentCash(){
+    this.receiptState = !this.receiptState;
+    this.tickets.forEach(async seat => {
+      let date = new Date();
+      let year = date.getFullYear().toString();
+      let month = date.getMonth().toString();
+      let day = date.getDate().toString();
+
+      let newDate = "'"+year+"-"+month+"-"+day+"'";
+
+      let receiptID = await this.database.insertReceipt(newDate);
+      console.log(receiptID[0].ID);
+      await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+    });
+  }
+
 }

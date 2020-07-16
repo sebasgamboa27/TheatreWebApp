@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from '../database.service';
+import { EmployeeServiceService } from '../employee-service.service';
 
 @Component({
   selector: 'app-empleado-login',
@@ -12,7 +13,7 @@ export class EmpleadoLoginComponent implements OnInit {
   @Input() password: string;
   loginState: string;
 
-  constructor(private database: DatabaseService) { }
+  constructor(private database: DatabaseService,private employeeService: EmployeeServiceService) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +28,7 @@ export class EmpleadoLoginComponent implements OnInit {
     let state = await this.database.checkEmployeeLogin(this.username,this.password)
     if(state[0]['']){
       this.loginState = 'logged';
+      this.employeeService.changeLoginState();
     }
     else{
       this.loginState = 'not-logged';

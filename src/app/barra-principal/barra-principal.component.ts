@@ -17,7 +17,6 @@ export class BarraPrincipalComponent implements OnInit {
 
   showEmployeeLogin(){
     this.employeeLogin = true;
-    debugger;
   }
 
 }

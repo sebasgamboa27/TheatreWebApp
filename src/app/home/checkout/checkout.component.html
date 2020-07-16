@@ -10,6 +10,9 @@
     <h2><span class="badge badge-dark mr-5 mb-3 ml-5"><i class="fab fa-cc-apple-pay"></i></span></h2>
     <h2><span class="badge badge-info mr-5 mb-3 ml-5"><i class="fab fa-cc-amazon-pay"></i></span></h2>
     <h2><span *ngIf="priceToPay != null" class="badge badge-pill badge-light mr-5 mb-3 ml-5">Precio por Pagar: {{priceToPay}}</span></h2>
+    <span *ngIf="loginState"><button type="button" class="btn btn-success"
+      (click)="makePaymentCash()"
+      >Pay in Cash <i class="fas fa-money-bill-wave"></i></button></span>
   </div>
 
   <div class="form-row">

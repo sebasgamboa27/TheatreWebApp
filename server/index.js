@@ -37,7 +37,7 @@ app.post('/getPresentationsByMovie', async function (req, res) {
   const ID = req.body.ID;
   
   const result = await sql.query(`
-  EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }`);                     //Sustituir por EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }
+  EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }`);      //Sustituir por EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }
 
   res.send(result.recordset);
 });
@@ -118,16 +118,6 @@ app.post('/checkEmployeeLogin', async function (req, res) {
   const result = await sql.query(`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
   res.send(result.recordset);
 });
-
-//`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`
-
-//`SELECT CASE WHEN EXISTS (
-  //  SELECT *
-    //FROM Threatre_Schema.Employees as e,Threatre_Schema.TicketOfficeEmployees a
-    //WHERE e.ID = a.id AND e.Username = '${ Username }' AND e.Password = '${ Password }'
-    //)
-    //THEN CAST(1 AS BIT)
-    //ELSE CAST(0 AS BIT) END`
 
 
 app.listen(3000, function () {
