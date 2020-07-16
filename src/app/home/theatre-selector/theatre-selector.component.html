@@ -3,9 +3,9 @@
 
 <div class="dropdown">
   <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{ selectedTheatre?.Name }}
+    {{ selectedTheatre?.TheaterName }}
   </button>
   <div class="dropdown-menu">
-    <button *ngFor="let theatre of theatres" class="dropdown-item" type="button" (click)="selectTheatre(theatre)">{{ theatre.Name }}</button>
+    <button *ngFor="let theatre of theatres" class="dropdown-item" type="button" (click)="selectTheatre(theatre)">{{ theatre.TheaterName }}</button>
   </div>
 </div>

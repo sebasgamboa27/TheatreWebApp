@@ -48,7 +48,7 @@ export class DatabaseService {
   }
 
   async getPricebySeat(ticket: string, blockID:string) {
-    return await this.http.post<Prices>('http://localhost:3000/getPricebySeat',{SeatID:ticket,BlockID:blockID}).toPromise();
+    return await this.http.post<any>('http://localhost:3000/getPricebySeat',{SeatID:ticket,BlockID:blockID}).toPromise();
   }
 
   async insertReceipt(date:string) {
@@ -61,8 +61,8 @@ export class DatabaseService {
     return await this.http.post<ReceiptID>('http://localhost:3000/insertBookings',{PresentationID:presentationID,PaymentID:paymentID,SeatID:SeatID}).toPromise();
   }
 
-  async checkEmployeeLogin(email: string, password:string) {
-    return await this.http.post<boolean>('http://localhost:3000/checkEmployeeLogin',{Email:email,Password:password}).toPromise();
+  async checkEmployeeLogin(username: string, password:string) {
+    return await this.http.post<any>('http://localhost:3000/checkEmployeeLogin',{Username:username,Password:password}).toPromise();
   }
 
 

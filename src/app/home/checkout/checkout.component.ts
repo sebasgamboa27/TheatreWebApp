@@ -28,8 +28,9 @@ export class CheckoutComponent implements OnInit {
 
   async getAmountToPay(tickets: Seat[]){
     this.totalPrices = await this.database.getPricebySeat(tickets[0].SeatID,tickets[0].BlockID);
+    debugger;
     if(this.totalPrices != null){
-      this.priceToPay = this.totalPrices[0].Price * this.tickets.length;
+      this.priceToPay = this.totalPrices[0].price * this.tickets.length;
     }
   }
 
@@ -38,11 +39,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   makePayment(){
-
     const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1; 
     console.log(randomNumber);
 
     if(randomNumber%2 === this.priceToPay%2){
+      debugger;
       this.cardRejected = false;
       this.receiptState = !this.receiptState;
       this.tickets.forEach(async seat => {

@@ -12,14 +12,14 @@ app.use(bodyParser.json());
 
 app.get('/getMovies', async function (req, res) {
   await sql.connect(dbConnString);
-  const result = await sql.query('select * from Threatre_Schema.Production');  //Sustituir por EXEC uspProductionsRead
+  const result = await sql.query('EXEC uspProductionsRead');  //Sustituir por EXEC uspProductionsRead
   res.send(result.recordset);
 });
 
 app.get('/getTheatres', async function (req, res) {
   await sql.connect(dbConnString);
-  const result = await sql.query('select * from Threatre_Schema.Theater');   //Sustituir por EXEC uspTheatersRead
-  res.send(result.recordsets[0]);
+  const result = await sql.query('EXEC uspTheatersRead');   //Sustituir por EXEC uspTheatersRead
+  res.send(result.recordset);
 });
 
 app.post('/getMoviesbyTheatre', async function (req, res) {
@@ -27,8 +27,7 @@ app.post('/getMoviesbyTheatre', async function (req, res) {
   const ID = req.body.ID;
   
   const result = await sql.query(`
-    select * from Threatre_Schema.Production
-    WHERE Threatre_Schema.Production.TheaterID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
+  EXEC uspGetMoviesByTheater @THEATERID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
 
   res.send(result.recordset);
 });
@@ -38,9 +37,7 @@ app.post('/getPresentationsByMovie', async function (req, res) {
   const ID = req.body.ID;
   
   const result = await sql.query(`
-    select p.Date,p.Hour,p.ProductionID,p.PresentationID from Threatre_Schema.Presentation as p
-    WHERE p.ProductionID = ${ ID }                                        
-    ORDER BY p.Date ASC, p.Hour ASC`);                     //Sustituir por EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }
+  EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }`);                     //Sustituir por EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }
 
   res.send(result.recordset);
 });
@@ -50,9 +47,7 @@ app.post('/getBlocksbyMovie', async function (req, res) {
   const productionID = req.body.ProductionID;
   
   const result = await sql.query(`
-    select b.BlockName,b.TheaterID,b.BlockID
-    from Threatre_Schema.SeatBlocks as b,Threatre_Schema.Production as pro
-    WHERE pro.ID = ${ productionID } AND pro.TheaterID = b.TheaterID`);
+  EXEC uspGetBlocksByProduction @PRODUCTIONID = ${ productionID }`);
                                                 //Sustituir por EXEC uspGetBlocksByProduction @PRODUCTIONID = ${ productionID }
   res.send(result.recordset);
 });
@@ -62,9 +57,7 @@ app.post('/getSeatsbyBlock', async function (req, res) {
   const BlockID = req.body.BlockID;
   
   const result = await sql.query(`
-    select s.Row,s.Number,s.SeatID,s.BlockID   
-    from Threatre_Schema.Seats as s
-    WHERE s.BlockID = ${ BlockID }`);  //Sustituir por EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }
+  EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }`);  //Sustituir por EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }
 
   res.send(result.recordset);
 });
@@ -75,11 +68,7 @@ app.post('/getOccupiedSeats', async function (req, res) {
   const PresentationID = req.body.PresentationID;
   
   const result = await sql.query(`
-    select s.Row,s.Number,s.SeatID,s.BlockID  
-    from Threatre_Schema.Seats as s,Threatre_Schema.SeatPresentationBookings as spb
-    WHERE s.BlockID = ${ BlockID } AND
-    s.SeatID = spb.SeatID AND
-    spb.PresentationID = ${ PresentationID }`);
+  EXEC uspGetOccupiedSeats @BLOCKID = ${ BlockID },@PresentationID = ${ PresentationID }`);
                           //Sustituir por EXEC uspGetOccupiedSeats @BLOCKID = ${ BlockID },@PresentationID = ${ PresentationID }
   res.send(result.recordset);
 });
@@ -91,11 +80,7 @@ app.post('/getPricebySeat', async function (req, res) {
   const SeatID = req.body.SeatID;
   
   const result = await sql.query(`
-    select pbp.Price  
-    from Threatre_Schema.Seats as s,Threatre_Schema.ProductionBlockPrices as pbp
-    WHERE s.BlockID = ${ BlockID } AND
-    pbp.BlockID =  ${ BlockID } AND
-    s.SeatID = ${ SeatID }`);
+  EXEC uspGetPriceBySeat @BLOCKID = ${ BlockID } ,@SEATID = ${ SeatID }`);
         //Sustituir por EXEC uspGetPriceBySeat @BLOCKID = ${ BlockID } ,@SEATID = ${ SeatID }
   res.send(result.recordset);
 });
@@ -107,9 +92,7 @@ app.post('/insertReceipt', async function (req, res) {
   const ClientID = req.body.ClientID;
   
   const result = await sql.query(`
-  INSERT INTO Threatre_Schema.Receipts
-  OUTPUT INSERTED.ID
-  VALUES (${ Date }, ${ ApprobationCode }, ${ ClientID })`);
+  EXEC uspReceiptsInsert @Date = ${ Date } ,@CODE =${ ApprobationCode } ,@CLIENTID= ${ ClientID }`);
           // Sustituir por EXEC uspReceiptsInsert @Date = ${ Date } ,@CODE =${ ApprobationCode } ,@CLIENTID= ${ ClientID }
   res.send(result.recordset);
 });
@@ -122,28 +105,29 @@ app.post('/insertBookings', async function (req, res) {
   const SeatID = req.body.SeatID;
   
   const result = await sql.query(`
-  INSERT INTO Threatre_Schema.SeatPresentationBookings
-  VALUES (${ PresentationID }, ${ PaymentID }, ${ SeatID })`);
+  EXEC uspBookingsInsert @SEATID = ${ SeatID } ,@PAYMENTID =${ PaymentID } ,@PRESENTATIONID= ${ PresentationID }`);
         //Sustituir por EXEC uspBookingsInsert @SEATID = ${ SeatID } ,@PAYMENTID =${ PaymentID } ,@PRESENTATIONID= ${ PresentationID }
   res.send(result.recordset);
 });
 
 app.post('/checkEmployeeLogin', async function (req, res) {
   await sql.connect(dbConnString);
-  const Email = req.body.PresentationID;
-  const PaymentID = req.body.PaymentID;
-  
-  const result = await sql.query(`
-      SELECT  
-      CASE WHEN EXISTS (
-        SELECT *
-        FROM Threatre_Schema.Employees as e,Threatre_Schema.EmployeesTicketOfficeEmployees as t 
-        WHERE e.Email = ${ Email } AND e.Password = ${ Email } and e.ID = t.ID)
-      THEN CAST(1 AS BIT)
-      ELSE CAST(0 AS BIT) END;`);
+  const Username = req.body.Username;
+  const Password = req.body.Password;
+   
+  const result = await sql.query(`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
   res.send(result.recordset);
 });
 
+//`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`
+
+//`SELECT CASE WHEN EXISTS (
+  //  SELECT *
+    //FROM Threatre_Schema.Employees as e,Threatre_Schema.TicketOfficeEmployees a
+    //WHERE e.ID = a.id AND e.Username = '${ Username }' AND e.Password = '${ Password }'
+    //)
+    //THEN CAST(1 AS BIT)
+    //ELSE CAST(0 AS BIT) END`
 
 
 app.listen(3000, function () {

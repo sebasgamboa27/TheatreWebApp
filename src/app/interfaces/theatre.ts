@@ -1,6 +1,6 @@
 export interface Theatre {
   ID: string;
-  Name: string;
+  TheaterName: string;
   Email: string;
   Website: string;
   ClientServicePhone: string;

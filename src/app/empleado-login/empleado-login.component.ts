@@ -8,7 +8,7 @@ import { DatabaseService } from '../database.service';
 })
 export class EmpleadoLoginComponent implements OnInit {
 
-  @Input() email: string;
+  @Input() username: string;
   @Input() password: string;
   loginState: string;
 
@@ -22,9 +22,10 @@ export class EmpleadoLoginComponent implements OnInit {
   }
 
   async checkLogin(){
-    console.log(this.email);
+    console.log(this.username);
     console.log(this.password);
-    if(await this.database.checkEmployeeLogin(this.email,this.password)){
+    let state = await this.database.checkEmployeeLogin(this.username,this.password)
+    if(state[0]['']){
       this.loginState = 'logged';
     }
     else{

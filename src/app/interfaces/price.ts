@@ -1,3 +1,3 @@
 export interface Prices {
-  Price: number;
+  price: number;
 }
