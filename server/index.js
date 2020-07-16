@@ -62,7 +62,7 @@ app.post('/getSeatsbyBlock', async function (req, res) {
   const BlockID = req.body.BlockID;
   
   const result = await sql.query(`
-    select s.Row,s.Number 
+    select s.Row,s.Number,s.SeatID,s.BlockID
     from Threatre_Schema.Seats as s
     WHERE s.BlockID = ${ BlockID }`);
 
@@ -75,7 +75,7 @@ app.post('/getOccupiedSeats', async function (req, res) {
   const PresentationID = req.body.PresentationID;
   
   const result = await sql.query(`
-    select s.Row,s.Number 
+    select s.Row,s.Number,s.SeatID,s.BlockID  
     from Threatre_Schema.Seats as s,Threatre_Schema.SeatPresentationBookings as spb
     WHERE s.BlockID = ${ BlockID } AND
     s.SeatID = spb.SeatID AND
@@ -83,6 +83,24 @@ app.post('/getOccupiedSeats', async function (req, res) {
 
   res.send(result.recordset);
 });
+
+
+app.post('/getPricebySeat', async function (req, res) {
+  await sql.connect(dbConnString);
+  const BlockID = req.body.BlockID;
+  const SeatID = req.body.SeatID;
+  
+  const result = await sql.query(`
+    select pbp.Price  
+    from Threatre_Schema.Seats as s,Threatre_Schema.ProductionBlockPrices as pbp
+    WHERE s.BlockID = ${ BlockID } AND
+    pbp.BlockID =  ${ BlockID } AND
+    s.SeatID = ${ SeatID }`);
+
+  res.send(result.recordset);
+});
+
+
 
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');

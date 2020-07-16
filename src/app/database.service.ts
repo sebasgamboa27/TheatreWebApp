@@ -5,6 +5,7 @@ import { Theatre } from './interfaces/theatre';
 import { Presentation } from './interfaces/presentation';
 import { Block } from './interfaces/block';
 import { Seat } from './interfaces/seat';
+import { Prices } from './interfaces/price';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class DatabaseService {
 
   async getOccupiedSeats(blockID: string,presentationID: string) {
     return await this.http.post<Seat[]>('http://localhost:3000/getOccupiedSeats',{BlockID:blockID,PresentationID:presentationID}).toPromise();
+  }
+
+  async getPricebySeat(ticket: string, blockID:string) {
+    return await this.http.post<Prices>('http://localhost:3000/getPricebySeat',{SeatID:ticket,BlockID:blockID}).toPromise();
   }
 
 }
