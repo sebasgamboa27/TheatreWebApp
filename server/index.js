@@ -127,6 +127,23 @@ app.post('/insertBookings', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/checkEmployeeLogin', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Email = req.body.PresentationID;
+  const PaymentID = req.body.PaymentID;
+  
+  const result = await sql.query(`
+      SELECT  
+      CASE WHEN EXISTS (
+        SELECT *
+        FROM Threatre_Schema.Employees as e,Threatre_Schema.EmployeesTicketOfficeEmployees as t 
+        WHERE e.Email = ${ Email } AND e.Password = ${ Email } and e.ID = t.ID)
+      THEN CAST(1 AS BIT)
+      ELSE CAST(0 AS BIT) END;`);
+  res.send(result.recordset);
+});
+
+
 
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');

@@ -61,4 +61,10 @@ export class DatabaseService {
     return await this.http.post<ReceiptID>('http://localhost:3000/insertBookings',{PresentationID:presentationID,PaymentID:paymentID,SeatID:SeatID}).toPromise();
   }
 
+  async checkEmployeeLogin(email: string, password:string) {
+    return await this.http.post<boolean>('http://localhost:3000/checkEmployeeLogin',{Email:email,Password:password}).toPromise();
+  }
+
+
+
 }

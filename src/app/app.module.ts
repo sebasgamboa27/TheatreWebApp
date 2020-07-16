@@ -14,6 +14,9 @@ import { BuyWindowComponent } from './home/buy-window/buy-window.component';
 import { SelectSeatsComponent } from './home/select-seats/select-seats.component';
 import { SeatPickerComponent } from './home/seat-picker/seat-picker.component';
 import { CheckoutComponent } from './home/checkout/checkout.component';
+import { BarraPrincipalComponent } from './barra-principal/barra-principal.component';
+import { EmpleadoLoginComponent } from './empleado-login/empleado-login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,12 +30,15 @@ import { CheckoutComponent } from './home/checkout/checkout.component';
     BuyWindowComponent,
     SelectSeatsComponent,
     SeatPickerComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    BarraPrincipalComponent,
+    EmpleadoLoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
