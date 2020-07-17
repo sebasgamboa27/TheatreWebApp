@@ -151,6 +151,28 @@ app.post('/insertProduction', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/insertEmployee', async function (req, res) {
+  await sql.connect(dbConnString);
+  const TheaterID = req.body.TheaterID;
+  const Name = req.body.Name;
+  const ID = req.body.ID;
+  const Birth = req.body.Birth;
+  const Sex = req.body.Sex;
+  const Address = req.body.Address;
+  const Email = req.body.Email;
+  const PersonalP = req.body.PersonalP;
+  const HomeP = req.body.HomeP;
+  const OtherP = req.body.OtherP;
+  const Username = req.body.Username;
+  const Password = req.body.Password;
+   
+  const result = await sql.query(`EXEC uspEmployeesInsert @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = ${ Name },
+  @BIRTH = ${ Birth }, @SEX = ${ Sex }, @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
+  @PERSONALP = ${ PersonalP }, @HOMEP = ${ HomeP }, @OTHERP = ${ OtherP },
+  @USERNAME = ${ Username }, @PASSWORD = ${ Password }`);
+  res.send(result.recordset);
+});
+
 
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');

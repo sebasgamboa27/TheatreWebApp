@@ -22,7 +22,6 @@ export class ProductionFormComponent implements OnInit {
   }
 
   async insertProduction(){
-    console.log("si se pudo");
     await this.database.insertProduction(this.ID_de_Teatro,this.Nombre,this.Tipo,this.Fecha_de_Inicio,
       this.Fecha_de_Cierre,this.Descripcion,this.URL_Imagen);
   }

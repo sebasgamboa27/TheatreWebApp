@@ -198,7 +198,7 @@ go
 
 
 CREATE PROCEDURE uspEmployeesInsert
-                        @THEATERID INT,                   --LOS ESPACIOS QUE NO TIENEN NULL POR DEFAULT DEBEN SER LLENADOS EL RESTO PUEDEN SER OMITIDOS
+                        @THEATERID INT,                  
                         @ID INT,
                         @NAME NVARCHAR(MAX),
                         @BIRTH DATE,
@@ -250,4 +250,4 @@ CREATE PROCEDURE uspProductionUpdateState
         FROM Productions
         WHERE ID = @PRODUCTIONID
 
-
+go

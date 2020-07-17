@@ -9,6 +9,8 @@ import { DatabaseService } from 'src/app/database.service';
 export class EmployeeFormComponent implements OnInit {
 
   @Input() Nombre: string;
+  @Input() TheaterID: number;
+  @Input() ID: number;
   @Input() Fecha_de_Nacimiento: string;
   @Input() Sexo: string;
   @Input() Direccion: string;
@@ -24,8 +26,10 @@ export class EmployeeFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  insertEmployee(){
+  async insertEmployee(){
     console.log(this.Nombre);
+    console.log(this.TheaterID);
+    console.log(this.ID);
     console.log(this.Fecha_de_Nacimiento);
     console.log(this.Sexo);
     console.log(this.Direccion);
@@ -35,6 +39,9 @@ export class EmployeeFormComponent implements OnInit {
     console.log(this.Otro_Telefono);
     console.log(this.Username);
     console.log(this.Password);
+
+    await this.database.insertEmployee(this.TheaterID,this.ID,this.Nombre,this.Fecha_de_Nacimiento,this.Sexo,this.Direccion,
+      this.Email,this.Telefono_Personal,this.Telefono_de_Hogar,this.Otro_Telefono,this.Username,this.Password);
   }
 
 }

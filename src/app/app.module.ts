@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { TheaterAdminLoginComponent } from './theater-admin-login/theater-admin-login.component';
 import { ProductionFormComponent } from './admin/production-form/production-form.component';
 import { EmployeeFormComponent } from './admin/employee-form/employee-form.component';
+import { ProductionOptionsComponent } from './admin/production-options/production-options.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { EmployeeFormComponent } from './admin/employee-form/employee-form.compo
     EmpleadoLoginComponent,
     TheaterAdminLoginComponent,
     ProductionFormComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    ProductionOptionsComponent
   ],
   imports: [
     BrowserModule,

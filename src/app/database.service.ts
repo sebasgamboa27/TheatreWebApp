@@ -78,8 +78,16 @@ export class DatabaseService {
     {TheaterID:TheaterID,Name:Name,Type:Type,Start:Start,
       End:End,Description:Description,ImageURL:ImageURL}).toPromise();
 
+  }
+
+  async insertEmployee(TheaterID: number,ID: number,Name: string,Birth: string,Sex: string,Address: string,Email: string,
+    PersonalP: string,HomeP: string,OtherP: string,Username: string,Password: string) {
+
+    return await this.http.post<any>('http://localhost:3000/insertEmployee',
+    {TheaterID:TheaterID,ID:ID,Name:Name,Birth:Birth,Sex:Sex,Address:Address,Email:Email,
+      PersonalP:PersonalP,HomeP:HomeP,OtherP:OtherP,Username:Username,Password:Password}).toPromise();
 
   }
 
-
+  
 }
