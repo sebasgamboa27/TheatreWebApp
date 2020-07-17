@@ -18,6 +18,7 @@ import { BarraPrincipalComponent } from './barra-principal/barra-principal.compo
 import { EmpleadoLoginComponent } from './empleado-login/empleado-login.component';
 import { FormsModule } from '@angular/forms';
 import { TheaterAdminLoginComponent } from './theater-admin-login/theater-admin-login.component';
+import { ProductionFormComponent } from './admin/production-form/production-form.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { TheaterAdminLoginComponent } from './theater-admin-login/theater-admin-
     CheckoutComponent,
     BarraPrincipalComponent,
     EmpleadoLoginComponent,
-    TheaterAdminLoginComponent
+    TheaterAdminLoginComponent,
+    ProductionFormComponent
   ],
   imports: [
     BrowserModule,

@@ -128,6 +128,29 @@ app.post('/checkTheaterAdmin', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/getAdminInfo', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Username = req.body.Username;
+   
+  const result = await sql.query(`EXEC getAdminInfo @USERNAME = ${ Username }`);
+  res.send(result.recordset);
+});
+
+app.post('/insertProduction', async function (req, res) {
+  await sql.connect(dbConnString);
+  const TheaterID = req.body.TheaterID;
+  const Name = req.body.Name;
+  const Type = req.body.Type;
+  const Start = req.body.Start;
+  const End = req.body.End;
+  const Description = req.body.Description;
+  const ImageURL = req.body.ImageURL;
+   
+  const result = await sql.query(`EXEC uspProductionsInsert @Name = ${ Name } ,@TYPE = ${ Type }, @START = ${ Start },
+  @END = ${ End }, @DESCRIPTION = '${ Description }', @THEATERID = ${ TheaterID }, @IMAGEURL = '${ ImageURL }'`);
+  res.send(result.recordset);
+});
+
 
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');
