@@ -65,6 +65,10 @@ export class DatabaseService {
     return await this.http.post<any>('http://localhost:3000/checkEmployeeLogin',{Username:username,Password:password}).toPromise();
   }
 
+  async checkTheaterAdmin(username: string, password:string) {
+    return await this.http.post<any>('http://localhost:3000/checkTheaterAdmin',{Username:username,Password:password}).toPromise();
+  }
 
+  
 
 }

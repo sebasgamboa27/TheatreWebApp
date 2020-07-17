@@ -119,6 +119,15 @@ app.post('/checkEmployeeLogin', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/checkTheaterAdmin', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Username = req.body.Username;
+  const Password = req.body.Password;
+   
+  const result = await sql.query(`EXEC uspAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
+  res.send(result.recordset);
+});
+
 
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');

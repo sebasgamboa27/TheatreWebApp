@@ -17,6 +17,8 @@ import { CheckoutComponent } from './home/checkout/checkout.component';
 import { BarraPrincipalComponent } from './barra-principal/barra-principal.component';
 import { EmpleadoLoginComponent } from './empleado-login/empleado-login.component';
 import { FormsModule } from '@angular/forms';
+import { TheaterAdminLoginComponent } from './theater-admin-login/theater-admin-login.component';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { FormsModule } from '@angular/forms';
     SeatPickerComponent,
     CheckoutComponent,
     BarraPrincipalComponent,
-    EmpleadoLoginComponent
+    EmpleadoLoginComponent,
+    TheaterAdminLoginComponent
   ],
   imports: [
     BrowserModule,

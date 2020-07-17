@@ -1,8 +1,8 @@
-<div class="modal" id="empleadoModal" tabindex="-1" role="dialog">
+<div class="modal" id="adminLogin" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Agente de Teatro Login</h5>
+        <h5 class="modal-title">Administrador de Teatro Login</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -10,12 +10,12 @@
       <div class="modal-body">
         <form class="form-inline">
           <div class="form-group mb-3">
-            <label for="exampleFormControlInput1" class="mr-3">Username</label>
-            <input type="email" [(ngModel)]="username" name="Username" class="form-control" id="exampleFormControlInput1">
+            <label for="userinput" class="mr-3">Username</label>
+            <input type="username" [(ngModel)]="username" name="Username" class="form-control" id="userinput">
           </div>
           <div class="form-group mx-sm-3 mb-2">
-            <label for="inputPassword2" class="mr-4">Password</label>
-            <input type="password" [(ngModel)]="password" class="form-control" id="inputPassword2" name="Password">
+            <label for="passwordinput" class="mr-4">Password</label>
+            <input type="password" [(ngModel)]="password" class="form-control" id="passwordinput" name="Password">
           </div>
         </form>
       </div>
@@ -23,6 +23,9 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary"
         (click)="checkLogin()">Login</button>
+        <button type="button" class="btn btn-primary"
+        [class.disabled]="loginState != 'logged'"
+        routerLink="/admin">Go to Admin</button>
       </div>
     </div>
   </div>
