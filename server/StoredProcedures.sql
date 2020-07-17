@@ -164,3 +164,35 @@ CREATE PROCEDURE uspTheatersRead
 go
 
 
+-------------------------------------------------------------------------- SECOND UPDATE --------------------------------------------------------------------------------
+
+CREATE PROCEDURE getAdminInfo
+                @USERNAME NVARCHAR(50)
+
+        AS
+            SELECT e.EmployeeName,t.TheaterName
+                FROM Employees e
+                        INNER JOIN
+                     TheaterAdmins ta on e.ID = ta.ID
+                        INNER JOIN
+                     Theaters t on ta.TheaterID = t.ID
+                WHERE e.Username = @USERNAME
+go
+
+
+CREATE PROCEDURE uspProductionsInsert
+                    @THEATERID INT,
+                    @Name NVARCHAR(50),
+                    @TYPE NVARCHAR(50),
+                    @START DATE,
+                    @END DATE,
+                    @DESCRIPTION NVARCHAR(MAX),
+                    @IMAGEURL NVARCHAR(MAX)
+
+        AS
+            INSERT INTO Productions (Name,Type, StartDate, FinishDate, Description, TheaterID, ImageURL)
+            VALUES (@Name,@TYPE,@START,@END,@DESCRIPTION,@THEATERID,@IMAGEURL)
+go
+
+
+
