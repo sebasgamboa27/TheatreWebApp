@@ -19,6 +19,7 @@ import { EmpleadoLoginComponent } from './empleado-login/empleado-login.componen
 import { FormsModule } from '@angular/forms';
 import { TheaterAdminLoginComponent } from './theater-admin-login/theater-admin-login.component';
 import { ProductionFormComponent } from './admin/production-form/production-form.component';
+import { EmployeeFormComponent } from './admin/employee-form/employee-form.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ProductionFormComponent } from './admin/production-form/production-form
     BarraPrincipalComponent,
     EmpleadoLoginComponent,
     TheaterAdminLoginComponent,
-    ProductionFormComponent
+    ProductionFormComponent,
+    EmployeeFormComponent
   ],
   imports: [
     BrowserModule,
