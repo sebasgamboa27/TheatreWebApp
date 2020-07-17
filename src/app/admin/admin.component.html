@@ -5,27 +5,33 @@
   </button>
 </nav>
 <hr>
+
+<div class="row mb-4">
+  <h1 class="col-6 mb-4">Bienvenido <span class="badge badge-success">{{adminName}}</span></h1>
+  <h1 class="col-6 mb-4">Configuraciones para Teatro: <span class="badge badge-success">{{theaterName}}</span></h1>
+</div>
+
 <p>
-  <a class="btn btn-primary btn-lg mr-5" data-toggle="collapse" href="#box1" role="button" aria-expanded="false" aria-controls="box1">Agregar Produccion</a>
-  <button class="btn btn-primary btn-lg mr-5" type="button" data-toggle="collapse" data-target="#box2" aria-expanded="false" aria-controls="box2">Agregar Empleado</button>
-  <button class="btn btn-primary btn-lg mr-5" type="button" data-toggle="collapse" data-target="#box3" aria-expanded="false" aria-controls="box3">Producciones</button>
+  <a class="btn btn-primary btn-lg mr-5 ml-4" data-toggle="collapse" href="#box1" role="button" aria-expanded="false" aria-controls="box1">Agregar Produccion</a>
+  <button class="btn btn-primary btn-lg mr-5 ml-4" type="button" data-toggle="collapse" data-target="#box2" aria-expanded="false" aria-controls="box2">Agregar Empleado</button>
+  <button class="btn btn-primary btn-lg mr-5 ml-4" type="button" data-toggle="collapse" data-target="#box3" aria-expanded="false" aria-controls="box3">Producciones</button>
 </p>
 <div class="row">
-  <div class="col">
+  <div class="col-3">
     <div class="collapse multi-collapse" id="box1">
       <div class="card card-body">
-        aqui va todo
+        <app-production-form></app-production-form>
       </div>
     </div>
   </div>
-  <div class="col">
+  <div class="col-3">
     <div class="collapse multi-collapse" id="box2">
       <div class="card card-body">
         aqui va todo
       </div>
     </div>
   </div>
-  <div class="col">
+  <div class="col-3">
     <div class="collapse multi-collapse" id="box3">
       <div class="card card-body">
         aqui va todo

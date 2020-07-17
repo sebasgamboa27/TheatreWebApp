@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from '../database.service';
+import { AdminInfoService } from '../admin/admin-info.service';
 
 @Component({
   selector: 'app-theater-admin-login',
@@ -13,14 +14,17 @@ export class TheaterAdminLoginComponent implements OnInit {
   @Input() password: string;
   loginState: string;
 
-  constructor(private database: DatabaseService) { }
+  constructor(private database: DatabaseService,private adminService: AdminInfoService) { }
 
   ngOnInit(): void {
   }
 
   async checkLogin(){
-    let state = await this.database.checkTheaterAdmin(this.username,this.password)
+    let state = await this.database.checkTheaterAdmin(this.username,this.password);
     if(state[0]['']){
+      let adminInfo = await this.database.getAdminInfo(this.username);
+      this.adminService.adminName = adminInfo[0].EmployeeName;
+      this.adminService.theaterName = adminInfo[0].TheaterName;
       this.loginState = 'logged';
     }
     else{
