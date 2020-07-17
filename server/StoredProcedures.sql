@@ -194,5 +194,60 @@ CREATE PROCEDURE uspProductionsInsert
             VALUES (@Name,@TYPE,@START,@END,@DESCRIPTION,@THEATERID,@IMAGEURL)
 go
 
+-------------------------------------------------------------------------- THIRD UPDATE --------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE uspEmployeesInsert
+                        @THEATERID INT,                   --LOS ESPACIOS QUE NO TIENEN NULL POR DEFAULT DEBEN SER LLENADOS EL RESTO PUEDEN SER OMITIDOS
+                        @ID INT,
+                        @NAME NVARCHAR(MAX),
+                        @BIRTH DATE,
+                        @SEX VARCHAR(1) = NULL,
+                        @ADDRESS NVARCHAR(MAX) = NULL,
+                        @EMAIL NVARCHAR(50) = NULL,
+                        @PERSONALP VARCHAR(8) = NULL,
+                        @HOMEP VARCHAR(8) = NULL,
+                        @OTHERP VARCHAR(8) = NULL,
+                        @USERNAME NVARCHAR(50),
+                        @PASSWORD NVARCHAR(50)
+
+        AS
+            INSERT INTO Employees(ID, EmployeeName, BirthDate, Sex, Address, Email, PersonalPhone, HomePhone, OtherPhone, Username, Password)
+            VALUES (@ID,@NAME,@BIRTH,@SEX,@ADDRESS,@EMAIL,@PERSONALP,@HOMEP,@OTHERP,@USERNAME,@PASSWORD)
+
+            INSERT INTO TicketOfficeEmployees(ID, TheaterID)
+            VALUES (@ID,@THEATERID)
+
+go
+
+CREATE PROCEDURE uspPresentationsInsert
+                    @HOUR TIME,
+                    @DATE DATE,
+                    @PRESENTATIONID INT
+    AS
+        INSERT INTO Presentations(Hour, Date, ProductionID)
+        VALUES (@HOUR,@Date,@PRESENTATIONID )
+
+go
+
+CREATE PROCEDURE uspBlockPriceInsert
+                        @PRODUCTIONID INT,
+                        @BLOCKID INT,
+                        @PRICE INT
+
+    AS
+        INSERT INTO ProductionBlockPrices (ProductionID, BlockID, Price)
+        VALUES (@PRODUCTIONID,@BLOCKID,@PRICE)
+go
+
+CREATE PROCEDURE uspProductionUpdateState
+                @UPDATESTATE NVARCHAR(30),
+                @PRODUCTIONID INT
+
+    AS
+        UPDATE Productions
+        SET State = @UPDATESTATE
+        FROM Productions
+        WHERE ID = @PRODUCTIONID
 
 
