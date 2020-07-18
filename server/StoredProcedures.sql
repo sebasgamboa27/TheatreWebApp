@@ -317,10 +317,12 @@ CREATE PROCEDURE uspInsertClient
                     @NAME NVARCHAR(50),
                     @EMAIL NVARCHAR(50),
                     @PHONE VARCHAR(8) = NULL
+                    
 
         AS
 
             INSERT INTO Clients(NAME, PHONE, EMAIL)
+            OUTPUT Inserted.ID
             VALUES (@NAME,@PHONE,@EMAIL)
 
 go
