@@ -260,3 +260,41 @@ CREATE PROCEDURE uspGetTheaterID
             WHERE TheaterName = @THEATERNAME
 go
 
+-------------------------------------------------------------------------- FOURTH UPDATE --------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE uspTheatersInsert
+                        @NAME NVARCHAR(50),
+                        @EMAIL NVARCHAR(50),
+                        @WEBSITE NVARCHAR(50),
+                        @SPHONE VARCHAR(8),
+                        @OPHONE VARCHAR(8)
+
+    AS
+        INSERT INTO Theaters(THEATERNAME, EMAIL, WEBSITE, CLIENTSERVICEPHONE, TICKETOFFICEPHONE)
+        VALUES (@NAME,@EMAIL,@WEBSITE,@SPHONE,@OPHONE)
+
+go
+
+CREATE PROCEDURE uspInsertAdmins
+                    @THEATERID INT,
+                    @ID INT,
+                    @NAME NVARCHAR(MAX),
+                    @BIRTH DATE,
+                    @SEX VARCHAR(1),
+                    @ADDRESS NVARCHAR(MAX),
+                    @EMAIL NVARCHAR(50),
+                    @HPHONE VARCHAR(8),
+                    @PPHONE VARCHAR(8),
+                    @OPHONE VARCHAR(8),
+                    @USERNAME NVARCHAR(50),
+                    @PASSWORD NVARCHAR(50)
+
+        AS
+            INSERT INTO Employees(ID, EmployeeName, BirthDate, Sex, Address, Email, PersonalPhone, HomePhone, OtherPhone, Username, Password)
+            VALUES (@ID,@NAME,@BIRTH,@SEX,@ADDRESS,@EMAIL,@PPHONE,@HPHONE,@OPHONE,@USERNAME,@PASSWORD)
+
+            INSERT INTO TheaterAdmins(ID, TheaterID)
+            VALUES (@ID,@THEATERID)
+
+go
