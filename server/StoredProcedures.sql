@@ -298,3 +298,48 @@ CREATE PROCEDURE uspInsertAdmins
             VALUES (@ID,@THEATERID)
 
 go
+
+-------------------------------------------------------------------------- FIFTH UPDATE --------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE uspClientIDbyEmail
+                @EMAIL NVARCHAR(50)
+
+    AS
+
+        SELECT ID
+            FROM Clients
+            WHERE Email = @EMAIL
+
+go
+
+CREATE PROCEDURE uspInsertClient
+                    @NAME NVARCHAR(50),
+                    @EMAIL NVARCHAR(50),
+                    @PHONE VARCHAR(8) = NULL
+
+        AS
+
+            INSERT INTO Clients(NAME, PHONE, EMAIL)
+            VALUES (@NAME,@PHONE,@EMAIL)
+
+go
+
+CREATE PROCEDURE uspClientCheck
+                @EMAIL NVARCHAR(50),
+                @VALIDATION BIT OUTPUT
+
+        AS
+
+            SET @VALIDATION = 1
+
+            IF(EXISTS(
+                    SELECT *
+                        FROM Clients
+                        WHERE @EMAIL = Email
+                ))
+                BEGIN;
+                    SET @VALIDATION = 0
+                END;
+
+            SELECT @VALIDATION
