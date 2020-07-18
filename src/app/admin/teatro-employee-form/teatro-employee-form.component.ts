@@ -26,7 +26,7 @@ export class TeatroEmployeeFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  insertEmployee(){
+  async insertEmployee(){
     console.log(this.Nombre);
     console.log(this.TheaterID);
     console.log(this.ID);
@@ -39,6 +39,9 @@ export class TeatroEmployeeFormComponent implements OnInit {
     console.log(this.Otro_Telefono);
     console.log(this.Username);
     console.log(this.Password);
+
+    await this.database.insertAdmins(this.TheaterID,this.ID,this.Nombre,this.Fecha_de_Nacimiento,this.Sexo,this.Direccion,
+      this.Email,this.Telefono_Personal,this.Telefono_de_Hogar,this.Otro_Telefono,this.Username,this.Password);
   }
 
 }

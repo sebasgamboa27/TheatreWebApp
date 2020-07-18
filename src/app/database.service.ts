@@ -105,10 +105,27 @@ export class DatabaseService {
 
   }
 
+  async insertTheater(Nombre: string,Email: string,Website: string,ClientServicePhone: string,TicketOfficePhone: string) {
+    return await this.http.post<any>('http://localhost:3000/insertTheater',
+    {Nombre:Nombre,Email:Email,Website:Website,ClientServicePhone:ClientServicePhone,
+      TicketOfficePhone:TicketOfficePhone}).toPromise();
+
+  }
+
+
   async insertEmployee(TheaterID: number,ID: number,Name: string,Birth: string,Sex: string,Address: string,Email: string,
     PersonalP: string,HomeP: string,OtherP: string,Username: string,Password: string) {
 
     return await this.http.post<any>('http://localhost:3000/insertEmployee',
+    {TheaterID:TheaterID,ID:ID,Name:Name,Birth:Birth,Sex:Sex,Address:Address,Email:Email,
+      PersonalP:PersonalP,HomeP:HomeP,OtherP:OtherP,Username:Username,Password:Password}).toPromise();
+
+  }
+
+  async insertAdmins(TheaterID: number,ID: number,Name: string,Birth: string,Sex: string,Address: string,Email: string,
+    PersonalP: string,HomeP: string,OtherP: string,Username: string,Password: string) {
+
+    return await this.http.post<any>('http://localhost:3000/insertAdmins',
     {TheaterID:TheaterID,ID:ID,Name:Name,Birth:Birth,Sex:Sex,Address:Address,Email:Email,
       PersonalP:PersonalP,HomeP:HomeP,OtherP:OtherP,Username:Username,Password:Password}).toPromise();
 
