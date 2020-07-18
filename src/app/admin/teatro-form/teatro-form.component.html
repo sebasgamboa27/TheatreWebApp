@@ -1,0 +1,25 @@
+<form>
+  <div class="form-group">
+    <label for="Nombre">Nombre</label>
+    <input type="Nombre" [(ngModel)]="Nombre" name="Nombre" class="form-control" id="Nombre">
+  </div>
+  <div class="form-group">
+    <label for="Email">Email</label>
+    <input type="Email" [(ngModel)]="Email" name="Email" class="form-control" id="Email">
+  </div>
+  <div class="form-group md-6">
+    <label for="Website">Website</label>
+    <input type="Website" [(ngModel)]="Website" name="Website" class="form-control" id="Website">
+  </div>
+  <div class="form-group md-6">
+    <label for="ClientServicePhone">Telefono Servicio al Cliente</label>
+    <input type="ClientServicePhone" [(ngModel)]="ClientServicePhone" name="ClientServicePhone" class="form-control" id="ClientServicePhone">
+  </div>
+  <div class="form-group md-2">
+    <label for="TicketOfficePhone">Telefono tiqueteria</label>
+    <input type="TicketOfficePhone" [(ngModel)]="TicketOfficePhone" name="TicketOfficePhone" class="form-control" id="TicketOfficePhone">
+  </div>
+  
+  <button type="button" class="btn btn-primary"
+  (click)="insertTheater()">Crear Teatro</button>
+</form>

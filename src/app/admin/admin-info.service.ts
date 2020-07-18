@@ -8,5 +8,7 @@ export class AdminInfoService {
   adminName: string;
   theaterName: string;
 
+  sysAdminName:string;
+
   constructor() { }
 }

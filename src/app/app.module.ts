@@ -24,6 +24,10 @@ import { ProductionOptionsComponent } from './admin/production-options/productio
 import { PresentationFormComponent } from './admin/presentation-form/presentation-form.component';
 import { PriceFormComponent } from './admin/price-form/price-form.component';
 import { StateFormComponent } from './admin/state-form/state-form.component';
+import { SysAdimLoginComponent } from './admin/sys-adim-login/sys-adim-login.component';
+import { SysAdminComponent } from './admin/sys-admin/sys-admin.component';
+import { TeatroEmployeeFormComponent } from './admin/teatro-employee-form/teatro-employee-form.component';
+import { TeatroFormComponent } from './admin/teatro-form/teatro-form.component';
 
 
 @NgModule({
@@ -47,7 +51,11 @@ import { StateFormComponent } from './admin/state-form/state-form.component';
     ProductionOptionsComponent,
     PresentationFormComponent,
     PriceFormComponent,
-    StateFormComponent
+    StateFormComponent,
+    SysAdimLoginComponent,
+    SysAdminComponent,
+    TeatroEmployeeFormComponent,
+    TeatroFormComponent
   ],
   imports: [
     BrowserModule,

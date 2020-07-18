@@ -1,0 +1,65 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Nombre">Nombre</label>
+      <input type="Nombre" [(ngModel)]="Nombre" name="Nombre" class="form-control" id="Nombre">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="TheaterID">ID Teatro</label>
+      <input type="TheaterID" [(ngModel)]="TheaterID" name="TheaterID" class="form-control" id="TheaterID">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="ID">ID</label>
+      <input type="ID" [(ngModel)]="ID" name="ID" class="form-control" id="ID">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Fecha_de_Nacimiento">Fecha de Nacimiento</label>
+      <input type="Fecha_de_Nacimiento" [(ngModel)]="Fecha_de_Nacimiento" name="Fecha_de_Nacimiento" class="form-control" id="Fecha_de_Nacimiento">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Sexo">Sexo</label>
+      <input type="Sexo" [(ngModel)]="Sexo" name="Sexo" class="form-control" id="Sexo">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Direccion">Direccion</label>
+      <input type="Direccion" [(ngModel)]="Direccion" name="Direccion" class="form-control" id="Direccion">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Email">Email</label>
+      <input type="Email" [(ngModel)]="Email" name="Email" class="form-control" id="Email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Telefono_Personal">Telefono Personal</label>
+      <input type="Telefono_Personal" [(ngModel)]="Telefono_Personal" name="Telefono_Personal" class="form-control" id="Telefono_Personal">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Telefono_de_Hogar">Telefono de Hogar</label>
+      <input type="Telefono_de_Hogar" [(ngModel)]="Telefono_de_Hogar" name="Telefono_de_Hogar" class="form-control" id="Telefono_de_Hogar">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Otro_Telefono">Otro Telefono</label>
+      <input type="Otro_Telefono" [(ngModel)]="Otro_Telefono" name="Otro_Telefono" class="form-control" id="Otro_Telefono">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Username">Username</label>
+      <input type="Username" [(ngModel)]="Username" name="Username" class="form-control" id="Username">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Password">Password</label>
+      <input type="Password" [(ngModel)]="Password" name="Password" class="form-control" id="Password">
+    </div>
+  </div>
+  
+  <button type="button" class="btn btn-primary"
+  (click)="insertEmployee()">Crear Empleado</button>
+</form>

@@ -159,6 +159,16 @@ app.post('/checkTheaterAdmin', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/checkSysAdmin', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Username = req.body.Username;
+  const Password = req.body.Password;
+   
+  const result = await sql.query(`EXEC uspSysAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
+  res.send(result.recordset);
+});
+
+
 app.post('/getAdminInfo', async function (req, res) {
   await sql.connect(dbConnString);
   const Username = req.body.Username;
@@ -166,6 +176,15 @@ app.post('/getAdminInfo', async function (req, res) {
   const result = await sql.query(`EXEC getAdminInfo @USERNAME = ${ Username }`);
   res.send(result.recordset);
 });
+
+app.post('/getSysAdminInfo', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Username = req.body.Username;
+   
+  const result = await sql.query(`EXEC getSysAdminInfo @USERNAME = ${ Username }`);
+  res.send(result.recordset);
+});
+
 
 app.post('/getTheaterID', async function (req, res) {
   await sql.connect(dbConnString);

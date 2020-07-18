@@ -77,6 +77,10 @@ export class DatabaseService {
     return await this.http.post<any>('http://localhost:3000/checkEmployeeLogin',{Username:username,Password:password}).toPromise();
   }
 
+  async checkSysAdmin(username: string, password:string) {
+    return await this.http.post<any>('http://localhost:3000/checkSysAdmin',{Username:username,Password:password}).toPromise();
+  }
+
   async checkTheaterAdmin(username: string, password:string) {
     return await this.http.post<any>('http://localhost:3000/checkTheaterAdmin',{Username:username,Password:password}).toPromise();
   }
@@ -84,6 +88,11 @@ export class DatabaseService {
   async getAdminInfo(username: string) {
     return await this.http.post<any>('http://localhost:3000/getAdminInfo',{Username:username}).toPromise();
   }
+
+  async getSysAdminInfo(username: string) {
+    return await this.http.post<any>('http://localhost:3000/getSysAdminInfo',{Username:username}).toPromise();
+  }
+
 
   async getTheaterID(TheaterName: string) {
     return await this.http.post<any>('http://localhost:3000/getTheaterID',{TheaterName:TheaterName}).toPromise();

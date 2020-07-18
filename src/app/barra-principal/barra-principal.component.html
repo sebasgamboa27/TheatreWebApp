@@ -8,10 +8,11 @@
       <button type="button" class="btn btn-light"
       (click)="empleadoModal.show()">Agente de Teatro</button>
       <button type="button" (click)="adminLogin.show()" class="btn btn-light">Administrador de Teatro</button>
-      <button type="button" class="btn btn-light">Administrador de Sistema</button>
+      <button type="button" (click)="sysadminLogin.show()" class="btn btn-light">Administrador de Sistema</button>
     </div>
   </div>
 </nav>
 
 <app-empleado-login #empleadoModal></app-empleado-login>
 <app-theater-admin-login #adminLogin></app-theater-admin-login>
+<app-sys-adim-login #sysadminLogin></app-sys-adim-login>

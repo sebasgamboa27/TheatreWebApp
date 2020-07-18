@@ -251,3 +251,12 @@ CREATE PROCEDURE uspProductionUpdateState
         WHERE ID = @PRODUCTIONID
 
 go
+
+CREATE PROCEDURE uspGetTheaterID
+                    @THEATERNAME nvarchar(50)
+    AS
+        SELECT ID
+            FROM Theaters
+            WHERE TheaterName = @THEATERNAME
+go
+
