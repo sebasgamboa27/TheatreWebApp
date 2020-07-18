@@ -194,6 +194,34 @@ app.post('/getTheaterID', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/clientByEmail', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Email = req.body.Email;
+   
+  const result = await sql.query(`EXEC uspClientIDbyEmail @EMAIL = '${ Email }'`);
+  res.send(result.recordset);
+});
+
+app.post('/clientCheck', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Email = req.body.Email;
+   
+  const result = await sql.query(`EXEC uspClientCheck @EMAIL = '${ Email }'`);
+  res.send(result.recordset);
+});
+
+app.post('/insertClient', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Nombre = req.body.Nombre;
+  const Email = req.body.Email;
+  const Telefono = req.body.Telefono;
+   
+  const result = await sql.query(`EXEC uspInsertClient @NAME = ${ Nombre }, @EMAIL = '${ Email }', @PHONE = ${ Telefono }`);
+  res.send(result.recordset);
+});
+
+
+
 app.post('/insertProduction', async function (req, res) {
   await sql.connect(dbConnString);
   const TheaterID = req.body.TheaterID;

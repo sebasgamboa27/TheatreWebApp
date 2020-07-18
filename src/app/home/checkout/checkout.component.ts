@@ -19,6 +19,10 @@ export class CheckoutComponent implements OnInit {
   receiptState: boolean;
   cardRejected: boolean;
   loginState: boolean;
+  @Input() Nombre: string;
+  @Input() Email: string;
+  @Input() Telefono: string;
+  alreadyCreatedClient: boolean;
 
   constructor(private database: DatabaseService,private employeeService: EmployeeServiceService){}
 
@@ -27,6 +31,7 @@ export class CheckoutComponent implements OnInit {
     this.getAmountToPay(this.tickets);
     this.receiptState = false;
     this.checkEmployeeService();
+    this.alreadyCreatedClient = false;
   }
 
   async getAmountToPay(tickets: Seat[]){
@@ -65,9 +70,23 @@ export class CheckoutComponent implements OnInit {
 
         let newDate = "'"+year+"-"+month+"-"+day+"'";
 
-        let receiptID = await this.database.insertReceipt(newDate);
-        console.log(receiptID[0].ID);
-        await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+        let clientExists = await this.database.clientCheck(this.Email);
+        debugger;
+
+        if(clientExists[0][''] || this.alreadyCreatedClient){
+          let clientID = await this.database.clientByEmail(this.Email);
+          let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+          console.log(receiptID[0].ID);
+          await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+        }
+        else{
+          debugger;
+          this.alreadyCreatedClient = true;
+          let clientID = await this.database.insertClient(this.Nombre,this.Email,this.Telefono);
+          let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+          console.log(receiptID[0].ID);
+          await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+        }
       });
     }
     else{
@@ -85,9 +104,22 @@ export class CheckoutComponent implements OnInit {
 
       let newDate = "'"+year+"-"+month+"-"+day+"'";
 
-      let receiptID = await this.database.insertReceipt(newDate);
-      console.log(receiptID[0].ID);
-      await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+      let clientExists = await this.database.clientCheck(this.Email);
+
+      if(clientExists[0]['']){
+        let clientID = await this.database.clientByEmail(this.Email);
+
+        let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+        console.log(receiptID[0].ID);
+        await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+      }
+      else{
+        let clientID = await this.database.insertClient(this.Nombre,this.Email,this.Telefono);
+        let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+        console.log(receiptID[0].ID);
+        await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+      }
+
     });
   }
 

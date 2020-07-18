@@ -329,11 +329,11 @@ go
 
 CREATE PROCEDURE uspClientCheck
                 @EMAIL NVARCHAR(50),
-                @VALIDATION BIT OUTPUT
+                @VALIDATION BIT = 0 OUTPUT
 
         AS
 
-            SET @VALIDATION = 1
+            SET @VALIDATION = 0
 
             IF(EXISTS(
                     SELECT *
@@ -341,7 +341,9 @@ CREATE PROCEDURE uspClientCheck
                         WHERE @EMAIL = Email
                 ))
                 BEGIN;
-                    SET @VALIDATION = 0
+                    SET @VALIDATION = 1
                 END;
 
             SELECT @VALIDATION
+go
+

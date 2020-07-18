@@ -17,8 +17,8 @@
 
   <div class="form-row">
     <div class="col-md-6 mb-3">
-      <label for="validationServer01">Nombre</label>
-      <input type="text" class="form-control" id="validationServer01" required>
+      <label for="Nombre">Nombre</label>
+      <input type="Nombre" [(ngModel)]="Nombre" name="Nombre" class="form-control" id="Nombre" required>
 
       <div class="valid-feedback">
         Se ve bien!
@@ -28,9 +28,18 @@
       </div>
     </div>
     <div class="col-md-6 mb-3">
-      <label for="validationServer02">Apellido</label>
-      <input type="text" class="form-control" id="validationServer02" required>
-
+      <label for="Email">Email</label>
+      <input type="Email" [(ngModel)]="Email" name="Email" class="form-control" id="Email" required>
+      <div class="valid-feedback">
+        Se ve bien!
+      </div>
+      <div class="invalid-feedback">
+        Ingrese un nombre valido.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="Telefono">Telefono</label>
+      <input type="Telefono" [(ngModel)]="Telefono" name="Telefono" class="form-control" id="Telefono" >
       <div class="valid-feedback">
         Se ve bien!
       </div>
@@ -57,7 +66,6 @@
         <option selected disabled value="">Fecha...</option>
         <option>...</option>
       </select>
-
       <div class="invalid-feedback">
         Ingrese una fecha valida.
       </div>
