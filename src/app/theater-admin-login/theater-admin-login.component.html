@@ -23,7 +23,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary"
         (click)="checkLogin()">Login</button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-target="#adminLogin"
         [class.disabled]="loginState != 'logged'"
         routerLink="/admin">Go to Admin</button>
       </div>

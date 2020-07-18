@@ -106,7 +106,38 @@ app.post('/insertBookings', async function (req, res) {
   
   const result = await sql.query(`
   EXEC uspBookingsInsert @SEATID = ${ SeatID } ,@PAYMENTID =${ PaymentID } ,@PRESENTATIONID= ${ PresentationID }`);
-        //Sustituir por EXEC uspBookingsInsert @SEATID = ${ SeatID } ,@PAYMENTID =${ PaymentID } ,@PRESENTATIONID= ${ PresentationID }
+  res.send(result.recordset);
+});
+
+app.post('/insertPresentation', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Hour = req.body.Hour;
+  const Date = req.body.Date;
+  const ProductionID = req.body.ProductionID;
+  
+  const result = await sql.query(`
+  EXEC uspPresentationsInsert @HOUR = ${ Hour }, @DATE = ${ Date }, @PRESENTATIONID = ${ ProductionID }`);
+  res.send(result.recordset);
+});
+
+app.post('/insertPrice', async function (req, res) {
+  await sql.connect(dbConnString);
+  const ProductionID = req.body.ProductionID;
+  const BlockID = req.body.BlockID;
+  const Price = req.body.Price;
+  
+  const result = await sql.query(`
+  EXEC uspBlockPriceInsert @PRODUCTIONID = ${ ProductionID }, @BLOCKID = ${ BlockID }, @PRICE = ${ Price }`);
+  res.send(result.recordset);
+});
+
+
+app.post('/updateProductionState', async function (req, res) {
+  await sql.connect(dbConnString);
+  const UpdateState = req.body.UpdateState;
+  const ProductionID = req.body.ProductionID;
+   
+  const result = await sql.query(`EXEC uspProductionUpdateState @UPDATESTATE = ${ UpdateState } ,@PRODUCTIONID = ${ ProductionID }`);
   res.send(result.recordset);
 });
 
@@ -133,6 +164,14 @@ app.post('/getAdminInfo', async function (req, res) {
   const Username = req.body.Username;
    
   const result = await sql.query(`EXEC getAdminInfo @USERNAME = ${ Username }`);
+  res.send(result.recordset);
+});
+
+app.post('/getTheaterID', async function (req, res) {
+  await sql.connect(dbConnString);
+  const TheaterName = req.body.TheaterName;
+   
+  const result = await sql.query(`EXEC uspGetTheaterID @THEATERNAME = ${ TheaterName }`);
   res.send(result.recordset);
 });
 

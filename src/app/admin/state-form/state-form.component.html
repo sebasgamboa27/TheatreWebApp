@@ -1,0 +1,15 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-warning dropdown-toggle mt-3 ml-3 mb-3 mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{updateState}}
+  </button>
+  <div class="dropdown-menu">
+    <button class="dropdown-item" type="button" (click)="changeState('Confidencial')">Confidencial</button>
+    <button class="dropdown-item" type="button" (click)="changeState('Adelantada')">Adelantada</button>
+    <button class="dropdown-item" type="button" (click)="changeState('Anunciada')">Anunciada</button>
+    <button class="dropdown-item" type="button" (click)="changeState('Abierta')">Abierta</button>
+    <button class="dropdown-item" type="button" (click)="changeState('Cancelada')">Cancelada</button>
+    <button class="dropdown-item" type="button" (click)="changeState('Concluida')">Concluida</button>
+  </div>
+</div>
+<button type="button" class="btn btn-success"
+  (click)="insertState()">Actualizar</button>

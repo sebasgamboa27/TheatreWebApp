@@ -21,6 +21,9 @@ import { TheaterAdminLoginComponent } from './theater-admin-login/theater-admin-
 import { ProductionFormComponent } from './admin/production-form/production-form.component';
 import { EmployeeFormComponent } from './admin/employee-form/employee-form.component';
 import { ProductionOptionsComponent } from './admin/production-options/production-options.component';
+import { PresentationFormComponent } from './admin/presentation-form/presentation-form.component';
+import { PriceFormComponent } from './admin/price-form/price-form.component';
+import { StateFormComponent } from './admin/state-form/state-form.component';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import { ProductionOptionsComponent } from './admin/production-options/productio
     TheaterAdminLoginComponent,
     ProductionFormComponent,
     EmployeeFormComponent,
-    ProductionOptionsComponent
+    ProductionOptionsComponent,
+    PresentationFormComponent,
+    PriceFormComponent,
+    StateFormComponent
   ],
   imports: [
     BrowserModule,

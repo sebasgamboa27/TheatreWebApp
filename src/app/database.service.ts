@@ -61,6 +61,18 @@ export class DatabaseService {
     return await this.http.post<ReceiptID>('http://localhost:3000/insertBookings',{PresentationID:presentationID,PaymentID:paymentID,SeatID:SeatID}).toPromise();
   }
 
+  async insertPresentation(Hour: string, Date:string,ProductionID:string) {
+    return await this.http.post<any>('http://localhost:3000/insertPresentation',{Hour:Hour,Date:Date,ProductionID:ProductionID}).toPromise();
+  }
+
+  async insertPrice(ProductionID: string, BlockID:string,Price:string) {
+    return await this.http.post<any>('http://localhost:3000/insertPrice',{ProductionID:ProductionID,BlockID:BlockID,Price:Price}).toPromise();
+  }
+
+  async updateProductionState(UpdateState: string, ProductionID:string) {
+    return await this.http.post<any>('http://localhost:3000/updateProductionState',{UpdateState:UpdateState,ProductionID:ProductionID}).toPromise();
+  }
+
   async checkEmployeeLogin(username: string, password:string) {
     return await this.http.post<any>('http://localhost:3000/checkEmployeeLogin',{Username:username,Password:password}).toPromise();
   }
@@ -71,6 +83,10 @@ export class DatabaseService {
 
   async getAdminInfo(username: string) {
     return await this.http.post<any>('http://localhost:3000/getAdminInfo',{Username:username}).toPromise();
+  }
+
+  async getTheaterID(TheaterName: string) {
+    return await this.http.post<any>('http://localhost:3000/getTheaterID',{TheaterName:TheaterName}).toPromise();
   }
 
   async insertProduction(TheaterID: number,Name: string,Type: string,Start: string,End: string,Description: string,ImageURL: string) {

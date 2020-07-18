@@ -1,1 +1,26 @@
-<p>production-options works!</p>
+<div class="row">
+  <div class="col-4">
+    <div class="list-group" id="list-tab" role="tablist">
+      <div *ngFor="let production of productions" class="dropdown">
+        <button class="btn btn-info dropdown-toggle mb-3" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+        (click)="setCurrentProduction(production.ID)">
+          {{production.Name}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button" href="#list-home" (click)="setPresentationState()">Insertar Presentacion</button>
+          <button class="dropdown-item" type="button" href="#list-home" (click)="setPriceState()">Insertar Precio de Bloque</button>
+          <button class="dropdown-item" type="button" href="#list-home" (click)="setUpdateState()">Actualizar Estado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="dropdownMenu2">
+        <span *ngIf="displayState==='presentation'"> <app-presentation-form [productionID]="currentProduction"></app-presentation-form> </span>
+        <span *ngIf="displayState==='price'"> <app-price-form [productionID]="currentProduction"></app-price-form> </span>
+        <span *ngIf="displayState==='update'"> <app-state-form [productionID]="currentProduction"></app-state-form> </span>
+      </div>
+    </div>
+  </div>
+</div>

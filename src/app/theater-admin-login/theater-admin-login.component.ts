@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DatabaseService } from '../database.service';
 import { AdminInfoService } from '../admin/admin-info.service';
 
@@ -7,7 +7,7 @@ import { AdminInfoService } from '../admin/admin-info.service';
   templateUrl: './theater-admin-login.component.html',
   styleUrls: ['./theater-admin-login.component.css']
 })
-export class TheaterAdminLoginComponent implements OnInit {
+export class TheaterAdminLoginComponent implements OnInit,OnDestroy{
   [x: string]: any;
 
   @Input() username: string;
@@ -15,6 +15,10 @@ export class TheaterAdminLoginComponent implements OnInit {
   loginState: string;
 
   constructor(private database: DatabaseService,private adminService: AdminInfoService) { }
+  
+  ngOnDestroy(): void {
+    ($('#adminLogin') as any).modal('dispose');
+  }
 
   ngOnInit(): void {
   }
@@ -35,5 +39,10 @@ export class TheaterAdminLoginComponent implements OnInit {
   show(){
     ($('#adminLogin') as any).modal('show');
   }
+
+  destroy(){
+    ($('#adminLogin') as any).modal('dispose');
+  }
+
 
 }

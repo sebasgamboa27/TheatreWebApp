@@ -1,0 +1,14 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="ID_Bloque">ID Bloque</label>
+      <input type="ID_Bloque" [(ngModel)]="ID_Bloque" name="ID_Bloque" class="form-control" id="ID_Bloque">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Precio">Precio</label>
+      <input type="Precio" [(ngModel)]="Precio" name="Precio" class="form-control" id="Precio">
+    </div>
+  </div>
+  <button type="button" class="btn btn-success"
+  (click)="insertPrice()">Insertar Precio de Bloque</button>
+</form>

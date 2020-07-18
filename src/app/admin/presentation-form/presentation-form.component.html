@@ -1,0 +1,14 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Hora">Hora</label>
+      <input type="ID_de_Teatro" [(ngModel)]="Hora" name="Hora" class="form-control" id="Hora">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Fecha">Fecha</label>
+      <input type="Fecha" [(ngModel)]="Fecha" name="Fecha" class="form-control" id="Fecha">
+    </div>
+  </div>
+  <button type="button" class="btn btn-success"
+  (click)="insertPresentation()">Crear Presentacion</button>
+</form>
