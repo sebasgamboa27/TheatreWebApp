@@ -6,7 +6,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
     <button class="dropdown-item" type="button"
     *ngFor="let block of blocks"
-    (click)="updateSelectedBlock(block)"
+    (click)="movie.State==='Anunciada' || updateSelectedBlock(block)"
     >{{ block.BlockName }}</button>
   </div>
 </div>
@@ -27,6 +27,6 @@
   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
   <button type="button" class="btn btn-primary"
    [class.disabled]="movie.State === 'Anunciada'"
-  (click)="tickets.emit(selectedSeats)">
+  (click)="movie.State==='Anunciada'||tickets.emit(selectedSeats)">
   Comprar({{selectedSeatsLength}})</button>
 </div>

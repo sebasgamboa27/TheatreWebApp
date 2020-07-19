@@ -5,7 +5,7 @@ const sql = require('mssql');
 const { ESRCH } = require('constants');
 const app = express();
 
-const dbConnString = 'mssql://Nacho:1234@localhost/TeatrosTP2';
+const dbConnString = 'mssql://SA:<B4b0rsh>@localhost/TheatreApp';
 
 app.use(cors());
 app.use(bodyParser.json());
