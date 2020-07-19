@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Theatre"
+    }
+  },
+  "defaultProject": "Theatre",
+  "cli": {
+    "analytics": "bcc2c8be-01f0-4d13-910b-4a4aabbfa3ba"
+  }
 }

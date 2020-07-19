@@ -17,11 +17,7 @@ export class CarteleraComponent implements OnInit {
   }
 
   async displayMovies(theatreID:string):Promise<void>{
-    this.movies = await this.database.getMoviesbyTheater(theatreID);
-  }
-
-  showBuyDialog(movie: Movie) {
-    
+    this.movies = await this.database.getCinemaListings(theatreID);
   }
 
 }

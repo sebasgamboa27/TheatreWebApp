@@ -26,6 +26,7 @@
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
   <button type="button" class="btn btn-primary"
+   [class.disabled]="movie.State === 'Anunciada'"
   (click)="tickets.emit(selectedSeats)">
   Comprar({{selectedSeatsLength}})</button>
 </div>

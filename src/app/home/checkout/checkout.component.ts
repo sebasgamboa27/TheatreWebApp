@@ -24,7 +24,7 @@ export class CheckoutComponent implements OnInit {
   @Input() Telefono: string;
   alreadyCreatedClient: boolean;
 
-  constructor(private database: DatabaseService,private employeeService: EmployeeServiceService){}
+  constructor(private database: DatabaseService, private employeeService: EmployeeServiceService){}
 
 
   ngOnInit(): void {
@@ -35,15 +35,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   async getAmountToPay(tickets: Seat[]){
-    this.totalPrices = await this.database.getPricebySeat(tickets[0].SeatID,tickets[0].BlockID);
+    this.totalPrices = await this.database.getPricebySeat(tickets[0].SeatID, tickets[0].BlockID);
     debugger;
-    if(this.totalPrices != null){
+    if (this.totalPrices != null){
       this.priceToPay = this.totalPrices[0].price * this.tickets.length;
     }
   }
 
   checkEmployeeService(){
-    if(this.employeeService.loginState){
+    if (this.employeeService.loginState){
       this.loginState = true;
     }
     else{
@@ -56,36 +56,36 @@ export class CheckoutComponent implements OnInit {
   }
 
   makePayment(){
-    const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1; 
+    const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1;
     console.log(randomNumber);
 
-    if(randomNumber%2 === this.priceToPay%2){
+    if (randomNumber % 2 === this.priceToPay % 2){
       this.cardRejected = false;
       this.receiptState = !this.receiptState;
       this.tickets.forEach(async seat => {
-        let date = new Date();
-        let year = date.getFullYear().toString();
-        let month = date.getMonth().toString();
-        let day = date.getDate().toString();
+        const date = new Date();
+        const year = date.getFullYear().toString();
+        const month = date.getMonth().toString();
+        const day = date.getDate().toString();
 
-        let newDate = "'"+year+"-"+month+"-"+day+"'";
+        const newDate = '\'' + year + '-' + month + '-' + day + '\'';
 
-        let clientExists = await this.database.clientCheck(this.Email);
+        const clientExists = await this.database.clientCheck(this.Email);
         debugger;
 
-        if(clientExists[0][''] || this.alreadyCreatedClient){
-          let clientID = await this.database.clientByEmail(this.Email);
-          let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+        if (clientExists[0][''] || this.alreadyCreatedClient){
+          const clientID = await this.database.clientByEmail(this.Email);
+          const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
           console.log(receiptID[0].ID);
-          await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+          await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
         }
         else{
           debugger;
           this.alreadyCreatedClient = true;
-          let clientID = await this.database.insertClient(this.Nombre,this.Email,this.Telefono);
-          let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+          const clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
+          const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
           console.log(receiptID[0].ID);
-          await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+          await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
         }
       });
     }
@@ -97,27 +97,27 @@ export class CheckoutComponent implements OnInit {
   makePaymentCash(){
     this.receiptState = !this.receiptState;
     this.tickets.forEach(async seat => {
-      let date = new Date();
-      let year = date.getFullYear().toString();
-      let month = date.getMonth().toString();
-      let day = date.getDate().toString();
+      const date = new Date();
+      const year = date.getFullYear().toString();
+      const month = date.getMonth().toString();
+      const day = date.getDate().toString();
 
-      let newDate = "'"+year+"-"+month+"-"+day+"'";
+      const newDate = '\'' + year + '-' + month + '-' + day + '\'';
 
-      let clientExists = await this.database.clientCheck(this.Email);
+      const clientExists = await this.database.clientCheck(this.Email);
 
-      if(clientExists[0]['']){
-        let clientID = await this.database.clientByEmail(this.Email);
+      if (clientExists[0]['']){
+        const clientID = await this.database.clientByEmail(this.Email);
 
-        let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+        const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
         console.log(receiptID[0].ID);
-        await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+        await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
       }
       else{
-        let clientID = await this.database.insertClient(this.Nombre,this.Email,this.Telefono);
-        let receiptID = await this.database.insertReceipt(newDate,clientID[0].ID);
+        const clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
+        const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
         console.log(receiptID[0].ID);
-        await this.database.insertBookings(this.presentation.PresentationID,receiptID[0].ID,seat.SeatID);
+        await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
       }
 
     });

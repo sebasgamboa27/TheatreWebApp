@@ -23,6 +23,10 @@ export class DatabaseService {
     return await this.http.get<Movie[]>('http://localhost:3000/getMovies').toPromise();
   }
 
+  async getCinemaListings(id){
+    return await this.http.post<Movie[]>('http://localhost:3000/getCinemaListings',{ID:id}).toPromise();
+  }
+
   async getTheatres() {
     return await this.http.get<Theatre[]>('http://localhost:3000/getTheatres').toPromise();
   }

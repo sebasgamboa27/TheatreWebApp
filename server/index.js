@@ -5,7 +5,7 @@ const sql = require('mssql');
 const { ESRCH } = require('constants');
 const app = express();
 
-const dbConnString = 'mssql://SA:<B4b0rsh>@localhost/TheatreApp';
+const dbConnString = 'mssql://Nacho:1234@localhost/TeatrosTP2';
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -298,4 +298,14 @@ app.post('/insertAdmins', async function (req, res) {
 
 app.listen(3000, function () {
   console.log('Theather server listening on port 3000!');
+});
+
+app.post('/getCinemaListings', async function (req, res) {
+  await sql.connect(dbConnString);
+  const ID = req.body.ID;
+
+  const result = await sql.query(`
+  EXEC uspProductionsForPublic @THEATERID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
+
+  res.send(result.recordset);
 });

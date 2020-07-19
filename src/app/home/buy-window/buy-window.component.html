@@ -14,10 +14,33 @@
           (presentationSelected)="savePresentation($event)"
         ></app-select-seats> </span>
         <span *ngIf="step===2">
-          <app-checkout [tickets]="selectedSeats" 
-          [presentation]="selectedPresentation"></app-checkout>
-        </span>   
+          <app-checkout [tickets]="selectedSeats" [presentation]="selectedPresentation"></app-checkout>
+        </span>
       </div>
     </div>
   </div>
 </div>
+
+<span *ngIf="currentMovie?.State==='Cancelada'">
+  <div class="alert alert-warning" role="alert">
+      La producción ha sido cancelada
+  </div>
+</span>
+
+<span *ngIf="currentMovie?.State==='Concluida'">
+  <div class="alert alert-warning" role="alert">
+      La producción ha concluido sus presentaciones. Muchas gracias al público
+  </div>
+</span>
+
+<span *ngIf="currentMovie?.State==='Adelantada'">
+  <div class="alert alert-warning" role="alert">
+      La producción aún no posee presentaciones calendarizadas
+  </div>
+</span>
+
+<span *ngIf="currentMovie?.State==='Anunciada'">
+  <div class="alert alert-warning" role="alert">
+      La compra de tiquetes aún no ha sido habilitada
+  </div>
+</span>

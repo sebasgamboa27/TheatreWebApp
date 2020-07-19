@@ -14,16 +14,24 @@ export class BuyWindowComponent implements OnInit {
   step: number;
   selectedSeats: Seat[];
   selectedPresentation: Presentation;
+  buyable: boolean;
 
-  constructor() { }
+  constructor() {
+    this.buyable = true;
+  }
 
   ngOnInit(): void {
   }
 
-  show(movie:Movie){
+  show(movie: Movie){
     this.currentMovie = movie;
-    ($('#buyModal') as any).modal('show');
-    this.step = 1;
+    if (this.currentMovie.State === 'Anunciada' ) {
+      this.buyable = false;
+    }
+    if (this.currentMovie.State === 'Anunciada' || this.currentMovie.State === 'Abierta') {
+      ($('#buyModal') as any).modal('show');
+      this.step = 1;
+    }
   }
 
   displayCheckout(seats: Seat[]){

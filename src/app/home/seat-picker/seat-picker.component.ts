@@ -14,7 +14,7 @@ export class SeatPickerComponent implements OnInit {
 
   blocks: Block[];
   selectedBlock: Block;
-  seats: Seat[]
+  seats: Seat[];
   occupiedSeats: Seat[];
   selectedPresentation: Presentation;
   selectedSeats: Seat[];
@@ -32,13 +32,13 @@ export class SeatPickerComponent implements OnInit {
     this.blocks = await this.database.getBlocksbyMovie(this.movie.ID);
   }
 
-  async updateSelectedBlock(block:Block){
+  async updateSelectedBlock(block: Block){
     this.resetSelectedSeats();
     this.selectedBlock = block;
     this.seats = await this.database.getSeatsbyBlock(this.selectedBlock.BlockID);
     this.refreshStates();
-    if(this.selectedPresentation){
-      this.refreshSeats(this.selectedPresentation)
+    if (this.selectedPresentation){
+      this.refreshSeats(this.selectedPresentation);
     }
 
   }
@@ -64,20 +64,20 @@ export class SeatPickerComponent implements OnInit {
   }
 
   ngOnChanges(){
-    if(this.movie){
+    if (this.movie){
       this.reset();
       this.loadBlocks();
     }
   }
 
-  async refreshSeats(presentation:Presentation){
+  async refreshSeats(presentation: Presentation){
 
     this.resetSelectedSeats();
 
     this.selectedPresentation = presentation;
 
-    if(this.selectedBlock){
-      this.occupiedSeats = await this.database.getOccupiedSeats(this.selectedBlock.BlockID,presentation.PresentationID);
+    if (this.selectedBlock){
+      this.occupiedSeats = await this.database.getOccupiedSeats(this.selectedBlock.BlockID, presentation.PresentationID);
 
       this.seats.forEach(seat => {
         seat.state = this.getSeatState(seat);
@@ -85,27 +85,27 @@ export class SeatPickerComponent implements OnInit {
     }
   }
 
-  getSeatState(seat: Seat) :string{
+  getSeatState(seat: Seat): string{
     for (let i = 0; i < this.occupiedSeats.length; i++) {
-      if(seat.Number === this.occupiedSeats[i].Number && seat.Row === this.occupiedSeats[i].Row){
-        return 'occupied'
+      if (seat.Number === this.occupiedSeats[i].Number && seat.Row === this.occupiedSeats[i].Row){
+        return 'occupied';
       }
     }
-    return 'available'
+    return 'available';
 
   }
 
-  selectSeat(seat:Seat){
-    if(seat.state!='occupied'){
-      if(seat.state === 'available'){
+  selectSeat(seat: Seat){
+    if (seat.state != 'occupied'){
+      if (seat.state === 'available'){
         seat.state = 'selected';
         this.selectedSeats.push(seat);
-        this.selectedSeatsLength+=1;
+        this.selectedSeatsLength += 1;
       }
       else{
         seat.state = 'available';
-        this.selectedSeats.splice(this.selectedSeats.indexOf(seat),1);
-        this.selectedSeatsLength-=1;
+        this.selectedSeats.splice(this.selectedSeats.indexOf(seat), 1);
+        this.selectedSeatsLength -= 1;
       }
     }
     console.log(this.selectedSeats);
