@@ -106,7 +106,7 @@ export class CheckoutComponent implements OnInit {
 
       const clientExists = await this.database.clientCheck(this.Email);
 
-      if (clientExists[0]['']){
+      if (clientExists[0][''] || this.alreadyCreatedClient){
         const clientID = await this.database.clientByEmail(this.Email);
 
         const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
@@ -114,6 +114,7 @@ export class CheckoutComponent implements OnInit {
         await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
       }
       else{
+        this.alreadyCreatedClient = true;
         const clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
         const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
         console.log(receiptID[0].ID);

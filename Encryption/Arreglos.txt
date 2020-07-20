@@ -1,12 +1,12 @@
 1- Empleado solo puede acceder a su teatro (Aplica para admin también) (getEmployeeTheater y getAdminTheater NECESITAN ID DE EMPLEAO)
 2- Para la Fecha de Vencimiento de la tarjeta : separarla en 2(año y mes), asi solo tiene que hacer 12 mese y X años (yo diría que de ahora a 50 años)
 3- Agregar signo de colón al precio por pagar en checkout
-4- Revisar los bookings (Nos los crea ni genera recibo) (Esperar para hacer el transaction)
+4- Revisar los bookings (Solo crea un booking) (Esperar para hacer el transaction)
 5- Agregar información del usuario (i.e: Bienvenido, Gamboa!) (getEmployeeInfo NECESITAN USERNAME DE EMPLEADO)
 6- En admin, no pedir el ID del teatro obtener por medio de la info del admin, se recomienda cambiar el procedure
 7- Hacer que el tipo de obra no sea un input sino que un drop-down, para asegurarnos siempre los mismos valores (Musica,Teatro,Danza,Otro)
 8- Omititr ID teatro para agregar empleado
-9- Sexo un dropdown de F,M y N
-10- Agruegar, agregar una producción
+9- Sexo un dropdown de F,M y N para todo
+10- Verificar modificar produccion
 11- El administrador de sistema, no debe ingresar el ID del Teatro, un dropdown con el nombre de los teatros (uspTheatersRead, de ahí se elige coloca el nombre y se coloca en un dropdown, además el ID puede ser almacenado ya que la función retorna *)
-12- Dropdown de sexo en agregar admin
+12- Encriptar contrasenas
