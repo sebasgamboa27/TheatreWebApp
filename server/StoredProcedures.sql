@@ -444,3 +444,97 @@ CREATE PROCEDURE uspSetABooking
         COMMIT TRAN
 
 go
+
+CREATE TRIGGER AdminSysDisjunto
+        ON SystemAdmins
+        FOR INSERT
+
+    AS
+
+        IF (EXISTS(
+                SELECT *
+                    FROM TheaterAdmins a,
+                         inserted i,
+                         TicketOfficeEmployees toe
+                    WHERE a.ID = i.ID OR toe.ID = i.ID
+            ))
+            BEGIN;
+                RAISERROR ('El empleado ingresado ya pertence a otro sector',16,1)
+                ROLLBACK TRAN
+            END;
+go
+
+CREATE TRIGGER AdminDisjunto
+        ON TheaterAdmins
+        FOR INSERT
+
+    AS
+
+        IF (EXISTS(
+                SELECT *
+                    FROM SystemAdmins sa,
+                         inserted i,
+                         TicketOfficeEmployees toe
+                    WHERE sa.ID = i.ID OR toe.ID = i.ID
+            ))
+            BEGIN;
+                RAISERROR ('El empleado ingresado ya pertence a otro sector',16,1)
+                ROLLBACK TRAN
+            END;
+go
+
+CREATE TRIGGER EmpleadoBoleteríaDisjunto
+        ON TicketOfficeEmployees
+        FOR INSERT
+
+    AS
+
+        IF (EXISTS(
+                SELECT *
+                    FROM TheaterAdmins a,
+                         inserted i,
+                         SystemAdmins sa
+                    WHERE a.ID = i.ID OR sa.ID = i.ID
+            ))
+            BEGIN;
+                RAISERROR ('El empleado ingresado ya pertence a otro sector',16,1)
+                ROLLBACK TRAN
+            END;
+go
+
+CREATE TRIGGER AdminSolo1Teatro
+        ON TheaterAdmins
+        FOR INSERT
+
+    AS
+
+        IF (EXISTS(
+                SELECT *
+                    FROM TheaterAdmins a
+                            INNER JOIN
+                         inserted i ON a.ID = i.ID
+
+            ))
+            BEGIN;
+                RAISERROR ('La persona ingresada ya administra un teatro',16,1)
+                ROLLBACK TRAN
+            END;
+
+GO
+
+CREATE TRIGGER Prodution1TheaterOnly
+        ON Productions
+        FOR INSERT
+
+    AS
+
+        IF (EXISTS(
+                SELECT *
+                    FROM Productions p, inserted i
+                WHERE p.Name = i.Name
+
+            ))
+            BEGIN;
+                RAISERROR ('La producción ya pertenece a otro teatro',16,1)
+                ROLLBACK TRAN
+            END;
