@@ -347,3 +347,100 @@ CREATE PROCEDURE uspClientCheck
             SELECT @VALIDATION
 go
 
+
+-------------------------------------------------------------------------- SIXTH UPDATE --------------------------------------------------------------------------------
+
+CREATE VIEW vAdminsWithTheater
+
+    AS
+
+        SELECT e.ID,EmployeeName,TheaterID,TheaterName,Username
+            FROM Employees e
+                    INNER JOIN
+                 TheaterAdmins te on te.ID = e.ID
+                    INNER JOIN
+                 Theaters T on te.TheaterID = T.ID
+go
+
+CREATE VIEW vEmployeesWithTheater
+
+    AS
+
+        SELECT e.ID,EmployeeName,TheaterID,TheaterName,Username
+            FROM Employees e
+                    INNER JOIN
+                 TicketOfficeEmployees te on te.ID = e.ID
+                    INNER JOIN
+                 Theaters T on te.TheaterID = T.ID
+go
+
+
+CREATE PROCEDURE getEmployeeTheater
+                    @EmployeeID INT
+
+    AS
+        SELECT TheaterID,TheaterName
+            FROM vEmployeesWithTheater
+            WHERE @EmployeeID = ID
+
+go
+
+CREATE PROCEDURE getAdminTheater
+                    @EmployeeID INT
+
+    AS
+        SELECT TheaterID,TheaterName
+            FROM vEmployeesWithTheater
+            WHERE @EmployeeID = ID
+go
+
+CREATE PROCEDURE getOfficeEmployeesInfo
+                @USERNAME NVARCHAR(50)
+
+        AS
+            SELECT ID,EmployeeName,TheaterID,TheaterName
+                FROM vEmployeesWithTheater
+                WHERE Username = @USERNAME
+go
+
+CREATE PROCEDURE getAdminInfo
+                @USERNAME NVARCHAR(50)
+
+        AS
+            SELECT ID,EmployeeName,TheaterID,TheaterName
+                FROM vAdminsWithTheater
+                WHERE Username = @USERNAME
+go
+
+CREATE PROCEDURE uspSetABooking
+                    @DATE DATE,
+                    @CODE INT,
+                    @CLIENTID INT,
+                    @PRESENTATIONID INT,
+                    @SEATID INT
+
+    AS
+        DECLARE @PAYMENTID INT;
+
+        SET @PAYMENTID =  (SELECT ID
+                            FROM Receipts
+                            WHERE @DATE = Date AND @CODE = ApprobationCode)
+
+        BEGIN TRAN
+            IF(@PAYMENTID IS NULL)
+            BEGIN;
+                INSERT INTO Receipts(Date, ApprobationCode, ClientID)
+                VALUES (@DATE,@CODE,@CLIENTID)
+                INSERT INTO SeatPresentationBookings(PresentationID, SeatID, PaymentID)
+                VALUES (@PRESENTATIONID,@SEATID,@PAYMENTID)
+            END;
+
+            IF(@PAYMENTID IS NOT NULL)
+            BEGIN;
+                INSERT INTO SeatPresentationBookings(PresentationID, SeatID, PaymentID)
+                VALUES (@PRESENTATIONID,@SEATID,@PAYMENTID)
+            END;
+
+        COMMIT TRAN
+
+go
