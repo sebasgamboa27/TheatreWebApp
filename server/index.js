@@ -149,6 +149,13 @@ app.post('/checkEmployeeLogin', async function (req, res) {
   const Password = req.body.Password;
    
   const result = await sql.query(`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
+
+  if(result.recordset[0]['']){
+    const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 2`);
+    console.log(info.recordset[0].Username);
+    console.log(info.recordset[0].Password);
+  }
+
   res.send(result.recordset);
 });
 
@@ -158,6 +165,13 @@ app.post('/checkTheaterAdmin', async function (req, res) {
   const Password = req.body.Password;
    
   const result = await sql.query(`EXEC uspAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
+
+  if(result.recordset[0]['']){
+    const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 3`);
+    console.log(info.recordset[0].Username);
+    console.log(info.recordset[0].Password);
+  }
+
   res.send(result.recordset);
 });
 
@@ -167,6 +181,13 @@ app.post('/checkSysAdmin', async function (req, res) {
   const Password = req.body.Password;
    
   const result = await sql.query(`EXEC uspSysAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
+
+  if(result.recordset[0]['']){
+    const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 4`);
+    console.log(info.recordset[0].Username);
+    console.log(info.recordset[0].Password);
+  }
+
   res.send(result.recordset);
 });
 
