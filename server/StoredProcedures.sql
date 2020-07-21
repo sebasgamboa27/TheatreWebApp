@@ -538,6 +538,21 @@ CREATE TRIGGER Prodution1TheaterOnly
                 RAISERROR ('La producción ya pertenece a otro teatro',16,1)
                 ROLLBACK TRAN
             END;
+go
+
+-------------------------------------------------------------------------- Seventh UPDATE --------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE uspGetAuthenticationInfo
+                        @ID INT
+
+    AS
+
+        SELECT Username,Password
+            FROM DBAuthentication
+            WHERE @ID = ID
+    
+go
 
 
             
