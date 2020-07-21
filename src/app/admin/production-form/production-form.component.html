@@ -1,17 +1,18 @@
 <form>
   <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="ID_de_Teatro">ID de Teatro</label>
-      <input type="ID_de_Teatro" [(ngModel)]="ID_de_Teatro" name="ID_de_Teatro" class="form-control" id="ID_de_Teatro">
-    </div>
-    <div class="form-group col-md-6">
+    <div class="form-group md-6">
       <label for="Nombre">Nombre</label>
       <input type="Nombre" [(ngModel)]="Nombre" name="Nombre" class="form-control" id="Nombre">
     </div>
   </div>
   <div class="form-group">
     <label for="Tipo">Tipo</label>
-    <input type="Tipo" [(ngModel)]="Tipo" name="Tipo" class="form-control" id="Tipo">
+    <select [(ngModel)]="Tipo" name="Tipo" id="Tipo" class="form-control">
+      <option>Teatro</option>
+      <option>Danza</option>
+      <option>Concierto Musical</option>
+      <option>Otro</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="Fecha_de_Inicio">Fecha de Inicio</label>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/database.service';
 import { Movie } from 'src/app/interfaces/movie';
+import { EmployeeServiceService } from 'src/app/employee-service.service';
 
 @Component({
   selector: 'app-cartelera',

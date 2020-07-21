@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from 'src/app/database.service';
+import { AdminInfoService } from '../admin-info.service';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-employee-form',
@@ -9,7 +11,6 @@ import { DatabaseService } from 'src/app/database.service';
 export class EmployeeFormComponent implements OnInit {
 
   @Input() Nombre: string;
-  @Input() TheaterID: number;
   @Input() ID: number;
   @Input() Fecha_de_Nacimiento: string;
   @Input() Sexo: string;
@@ -21,14 +22,13 @@ export class EmployeeFormComponent implements OnInit {
   @Input() Username: string;
   @Input() Password: string;
 
-  constructor(private database: DatabaseService) { }
+  constructor(private database: DatabaseService,private adminService: AdminInfoService,private encryptor: EncrDecrServiceService) { }
 
   ngOnInit(): void {
   }
 
   async insertEmployee(){
     console.log(this.Nombre);
-    console.log(this.TheaterID);
     console.log(this.ID);
     console.log(this.Fecha_de_Nacimiento);
     console.log(this.Sexo);
@@ -40,8 +40,15 @@ export class EmployeeFormComponent implements OnInit {
     console.log(this.Username);
     console.log(this.Password);
 
-    await this.database.insertEmployee(this.TheaterID,this.ID,this.Nombre,this.Fecha_de_Nacimiento,this.Sexo,this.Direccion,
-      this.Email,this.Telefono_Personal,this.Telefono_de_Hogar,this.Otro_Telefono,this.Username,this.Password);
+    let theaterID =parseInt(this.adminService.theaterID);
+
+    console.log(theaterID);
+
+    debugger;
+    let encrypted = this.encryptor.set(this.Password);
+
+    await this.database.insertEmployee(theaterID,this.ID,this.Nombre,this.Fecha_de_Nacimiento,this.Sexo,this.Direccion,
+      this.Email,this.Telefono_Personal,this.Telefono_de_Hogar,this.Otro_Telefono,this.Username,encrypted);
   }
 
 }

@@ -4,6 +4,7 @@ import { DatabaseService } from 'src/app/database.service';
 import { Prices } from 'src/app/interfaces/price';
 import { Presentation } from 'src/app/interfaces/presentation';
 import { EmployeeServiceService } from 'src/app/employee-service.service';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-checkout',
@@ -94,8 +95,19 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  makePaymentCash(){
+  async makePaymentCash(){
     this.receiptState = !this.receiptState;
+
+    const clientExists = await this.database.clientCheck(this.Email);
+    let clientID;
+
+    if (clientExists[0]['']){
+      clientID = await this.database.clientByEmail(this.Email);
+    }
+    else{
+      clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
+    }
+
     this.tickets.forEach(async seat => {
       const date = new Date();
       const year = date.getFullYear().toString();
@@ -103,23 +115,10 @@ export class CheckoutComponent implements OnInit {
       const day = date.getDate().toString();
 
       const newDate = '\'' + year + '-' + month + '-' + day + '\'';
+      let apCode = Math.floor(Math.random() * (+90000 - +1)) + +1; 
+      let code = apCode.toString();
 
-      const clientExists = await this.database.clientCheck(this.Email);
-
-      if (clientExists[0][''] || this.alreadyCreatedClient){
-        const clientID = await this.database.clientByEmail(this.Email);
-
-        const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
-        console.log(receiptID[0].ID);
-        await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
-      }
-      else{
-        this.alreadyCreatedClient = true;
-        const clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
-        const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
-        console.log(receiptID[0].ID);
-        await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
-      }
+      await this.database.setUpBooking(newDate,code,clientID[0].ID,this.presentation.PresentationID,seat.SeatID);
 
     });
   }

@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from 'src/app/database.service';
+import { Movie } from 'src/app/interfaces/movie';
+import { Theatre } from 'src/app/interfaces/theatre';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-teatro-employee-form',
@@ -9,7 +12,7 @@ import { DatabaseService } from 'src/app/database.service';
 export class TeatroEmployeeFormComponent implements OnInit {
 
   @Input() Nombre: string;
-  @Input() TheaterID: number;
+  @Input() Theater: string;
   @Input() ID: number;
   @Input() Fecha_de_Nacimiento: string;
   @Input() Sexo: string;
@@ -20,15 +23,17 @@ export class TeatroEmployeeFormComponent implements OnInit {
   @Input() Otro_Telefono: string;
   @Input() Username: string;
   @Input() Password: string;
+  theaters: Theatre[];
 
-  constructor(private database: DatabaseService) { }
+  constructor(private database: DatabaseService,private encryptor: EncrDecrServiceService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.theaters = await this.database.getTheatres();
   }
 
   async insertEmployee(){
     console.log(this.Nombre);
-    console.log(this.TheaterID);
+    console.log(this.Theater);
     console.log(this.ID);
     console.log(this.Fecha_de_Nacimiento);
     console.log(this.Sexo);
@@ -40,8 +45,15 @@ export class TeatroEmployeeFormComponent implements OnInit {
     console.log(this.Username);
     console.log(this.Password);
 
-    await this.database.insertAdmins(this.TheaterID,this.ID,this.Nombre,this.Fecha_de_Nacimiento,this.Sexo,this.Direccion,
-      this.Email,this.Telefono_Personal,this.Telefono_de_Hogar,this.Otro_Telefono,this.Username,this.Password);
+    let theaterInfo = await this.database.getTheaterID(this.Theater);
+    let theaterID = theaterInfo[0].ID;
+
+    debugger;
+
+    let encrypted = this.encryptor.set(this.Password);
+
+    await this.database.insertAdmins(theaterID,this.ID,this.Nombre,this.Fecha_de_Nacimiento,this.Sexo,this.Direccion,
+      this.Email,this.Telefono_Personal,this.Telefono_de_Hogar,this.Otro_Telefono,this.Username,encrypted);
   }
 
 }

@@ -108,6 +108,13 @@ export class DatabaseService {
     return await this.http.post<any>('http://localhost:3000/getSysAdminInfo',{Username:username}).toPromise();
   }
 
+  async employeeInfo(username: string) {
+    return await this.http.post<any>('http://localhost:3000/getEmployeeInfo',{Username:username}).toPromise();
+  }
+
+  async employeeInfoAux(username: string) {
+    return this.employeeInfo(username);
+  }
 
   async getTheaterID(TheaterName: string) {
     return await this.http.post<any>('http://localhost:3000/getTheaterID',{TheaterName:TheaterName}).toPromise();
@@ -126,6 +133,14 @@ export class DatabaseService {
       TicketOfficePhone:TicketOfficePhone}).toPromise();
 
   }
+
+  async setUpBooking(Date: string,Code: string,ClientID: string,PresentationID: string,SeatID: string) {
+    return await this.http.post<any>('http://localhost:3000/setUpBooking',
+    {Date:Date,Code:Code,ClientID:ClientID,PresentationID:PresentationID,
+      SeatID:SeatID}).toPromise();
+
+  }
+
 
 
   async insertEmployee(TheaterID: number,ID: number,Name: string,Birth: string,Sex: string,Address: string,Email: string,

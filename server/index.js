@@ -146,7 +146,7 @@ app.post('/checkEmployeeLogin', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
+  const result = await sql.query(`EXEC uspOfficeAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
   res.send(result.recordset);
 });
 
@@ -155,7 +155,7 @@ app.post('/checkTheaterAdmin', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
+  const result = await sql.query(`EXEC uspAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
   res.send(result.recordset);
 });
 
@@ -164,7 +164,7 @@ app.post('/checkSysAdmin', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspSysAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = ${ Password }`);
+  const result = await sql.query(`EXEC uspSysAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
   res.send(result.recordset);
 });
 
@@ -185,12 +185,20 @@ app.post('/getSysAdminInfo', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/getEmployeeInfo', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Username = req.body.Username;
+   
+  const result = await sql.query(`EXEC getOfficeEmployeesInfo @USERNAME = ${ Username }`);
+  res.send(result.recordset);
+});
+
 
 app.post('/getTheaterID', async function (req, res) {
   await sql.connect(dbConnString);
   const TheaterName = req.body.TheaterName;
    
-  const result = await sql.query(`EXEC uspGetTheaterID @THEATERNAME = ${ TheaterName }`);
+  const result = await sql.query(`EXEC uspGetTheaterID @THEATERNAME = '${ TheaterName }'`);
   res.send(result.recordset);
 });
 
@@ -232,7 +240,7 @@ app.post('/insertProduction', async function (req, res) {
   const Description = req.body.Description;
   const ImageURL = req.body.ImageURL;
    
-  const result = await sql.query(`EXEC uspProductionsInsert @Name = ${ Name } ,@TYPE = ${ Type }, @START = ${ Start },
+  const result = await sql.query(`EXEC uspProductionsInsert @Name = ${ Name } ,@TYPE = '${ Type }', @START = ${ Start },
   @END = ${ End }, @DESCRIPTION = '${ Description }', @THEATERID = ${ TheaterID }, @IMAGEURL = '${ ImageURL }'`);
   res.send(result.recordset);
 });
@@ -266,9 +274,9 @@ app.post('/insertEmployee', async function (req, res) {
   const Password = req.body.Password;
    
   const result = await sql.query(`EXEC uspEmployeesInsert @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = ${ Name },
-  @BIRTH = ${ Birth }, @SEX = ${ Sex }, @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
+  @BIRTH = ${ Birth }, @SEX = '${ Sex }', @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
   @PERSONALP = ${ PersonalP }, @HOMEP = ${ HomeP }, @OTHERP = ${ OtherP },
-  @USERNAME = ${ Username }, @PASSWORD = ${ Password }`);
+  @USERNAME = ${ Username }, @PASSWORD = '${ Password }'`);
   res.send(result.recordset);
 });
 
@@ -289,9 +297,9 @@ app.post('/insertAdmins', async function (req, res) {
   const Password = req.body.Password;
    
   const result = await sql.query(`EXEC uspInsertAdmins @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = ${ Name },
-  @BIRTH = ${ Birth }, @SEX = ${ Sex }, @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
+  @BIRTH = ${ Birth }, @SEX = '${ Sex }', @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
   @PPHONE = ${ PersonalP }, @HPHONE = ${ HomeP }, @OPHONE = ${ OtherP },
-  @USERNAME = ${ Username }, @PASSWORD = ${ Password }`);
+  @USERNAME = ${ Username }, @PASSWORD = '${ Password }'`);
   res.send(result.recordset);
 });
 
@@ -307,5 +315,19 @@ app.post('/getCinemaListings', async function (req, res) {
   const result = await sql.query(`
   EXEC uspProductionsForPublic @THEATERID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
 
+  res.send(result.recordset);
+});
+
+
+app.post('/setUpBooking', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Date = req.body.Date;
+  const Code = req.body.Code;
+  const ClientID = req.body.ClientID;
+  const PresentationID = req.body.PresentationID;
+  const SeatID = req.body.SeatID;
+   
+  const result = await sql.query(`EXEC uspSetABooking @DATE = ${ Date } ,@CODE = '${ Code }', @CLIENTID = '${ ClientID }',
+  @PRESENTATIONID = ${ PresentationID }, @SEATID = '${ SeatID }'`);
   res.send(result.recordset);
 });

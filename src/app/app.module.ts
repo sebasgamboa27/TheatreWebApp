@@ -28,6 +28,7 @@ import { SysAdimLoginComponent } from './admin/sys-adim-login/sys-adim-login.com
 import { SysAdminComponent } from './admin/sys-admin/sys-admin.component';
 import { TeatroEmployeeFormComponent } from './admin/teatro-employee-form/teatro-employee-form.component';
 import { TeatroFormComponent } from './admin/teatro-form/teatro-form.component';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 
 @NgModule({
@@ -63,7 +64,7 @@ import { TeatroFormComponent } from './admin/teatro-form/teatro-form.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [EncrDecrServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,8 @@
       {{ movie.Name }}
     </h5>
     <p class="card-text">
-      {{ movie.Description }}
+      Tipo: {{ movie.Type }}<br>
+      Descripcion: {{ movie.Description }}
     </p>
     <button type="button" class="btn btn-primary" (click)="buy.emit(movie)">Comprar</button>
   </div>

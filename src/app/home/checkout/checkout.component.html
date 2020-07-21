@@ -9,7 +9,7 @@
     <h2><span class="badge badge-warning mr-5 mb-3 ml-5"><i class="fab fa-cc-discover"></i></span></h2>
     <h2><span class="badge badge-dark mr-5 mb-3 ml-5"><i class="fab fa-cc-apple-pay"></i></span></h2>
     <h2><span class="badge badge-info mr-5 mb-3 ml-5"><i class="fab fa-cc-amazon-pay"></i></span></h2>
-    <h2><span *ngIf="priceToPay != null" class="badge badge-pill badge-light mr-5 mb-3 ml-5">Precio por Pagar: {{priceToPay}}</span></h2>
+    <h2><span *ngIf="priceToPay != null" class="badge badge-pill badge-light mr-5 mb-3 ml-5">Precio por Pagar: ₡{{priceToPay}}</span></h2>
     <span *ngIf="loginState"><button type="button" class="btn btn-success"
       (click)="makePaymentCash()"
       >Pay in Cash <i class="fas fa-money-bill-wave"></i></button></span>
@@ -61,16 +61,46 @@
       </div>
     </div>
     <div class="col-md-3 mb-3">
-      <label for="validationServer04">Fecha de Vencimiento</label>
-      <select class="custom-select" id="validationServer04" required>
-        <option selected disabled value="">Fecha...</option>
-        <option>...</option>
-      </select>
-      <div class="invalid-feedback">
-        Ingrese una fecha valida.
+      <div class="col-12">
+        <label for="fecha">Fecha de Vencimiento</label>
+        <select class="custom-select" id="fecha" required>
+          <option selected disabled value="">Mes</option>
+          <option>01</option>
+          <option>02</option>
+          <option>03</option>
+          <option>04</option>
+          <option>05</option>
+          <option>06</option>
+          <option>07</option>
+          <option>08</option>
+          <option>09</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+        </select>
+        <div class="invalid-feedback">
+          Ingrese una fecha valida.
+        </div>
+        <div class="valid-feedback">
+          Se ve bien!
+        </div>
       </div>
-      <div class="valid-feedback">
-        Se ve bien!
+      <div class="col-12">
+        <select class="custom-select" id="validationServer04" required>
+          <option selected disabled value="">Año</option>
+          <option>2021</option>
+          <option>2022</option>
+          <option>2023</option>
+          <option>2024</option>
+          <option>2025</option>
+          <option>2026</option>
+          <option>2027</option>
+          <option>2028</option>
+          <option>2029</option>
+          <option>2030</option>
+          <option>2031</option>
+          <option>2032</option>
+        </select>
       </div>
     </div>
     <div class="col-md-3 mb-3">

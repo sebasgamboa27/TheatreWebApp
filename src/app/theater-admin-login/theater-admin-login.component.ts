@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DatabaseService } from '../database.service';
 import { AdminInfoService } from '../admin/admin-info.service';
+import { EncrDecrServiceService } from '../encr-decr-service.service';
 
 @Component({
   selector: 'app-theater-admin-login',
@@ -14,7 +15,7 @@ export class TheaterAdminLoginComponent implements OnInit,OnDestroy{
   @Input() password: string;
   loginState: string;
 
-  constructor(private database: DatabaseService,private adminService: AdminInfoService) { }
+  constructor(private database: DatabaseService,private adminService: AdminInfoService,private encryptor: EncrDecrServiceService) { }
   
   ngOnDestroy(): void {
     ($('#adminLogin') as any).modal('dispose');
@@ -24,11 +25,16 @@ export class TheaterAdminLoginComponent implements OnInit,OnDestroy{
   }
 
   async checkLogin(){
-    let state = await this.database.checkTheaterAdmin(this.username,this.password);
+    debugger;
+    let encrypted = this.encryptor.set(this.password);
+    let state = await this.database.checkTheaterAdmin(this.username,encrypted);
     if(state[0]['']){
+      debugger;
       let adminInfo = await this.database.getAdminInfo(this.username);
       this.adminService.adminName = adminInfo[0].EmployeeName;
       this.adminService.theaterName = adminInfo[0].TheaterName;
+      this.adminService.adminID = adminInfo[0].ID;
+      this.adminService.theaterID = adminInfo[0].TheaterID;
       this.loginState = 'logged';
     }
     else{

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from 'src/app/database.service';
+import { AdminInfoService } from '../admin-info.service';
 
 @Component({
   selector: 'app-production-form',
@@ -8,7 +9,6 @@ import { DatabaseService } from 'src/app/database.service';
 })
 export class ProductionFormComponent implements OnInit {
 
-  @Input() ID_de_Teatro: number;
   @Input() Nombre: string;
   @Input() Tipo: string;
   @Input() Fecha_de_Inicio: string;
@@ -16,13 +16,18 @@ export class ProductionFormComponent implements OnInit {
   @Input() Descripcion: string;
   @Input() URL_Imagen: string;
 
-  constructor(private database: DatabaseService) { }
+  constructor(private database: DatabaseService,private adminService: AdminInfoService) { }
 
   ngOnInit(): void {
   }
 
+
   async insertProduction(){
-    await this.database.insertProduction(this.ID_de_Teatro,this.Nombre,this.Tipo,this.Fecha_de_Inicio,
+    debugger;
+    let ID =parseInt(this.adminService.theaterID);
+    console.log(ID);
+
+    await this.database.insertProduction(ID,this.Nombre,this.Tipo,this.Fecha_de_Inicio,
       this.Fecha_de_Cierre,this.Descripcion,this.URL_Imagen);
   }
 

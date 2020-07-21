@@ -538,3 +538,6 @@ CREATE TRIGGER Prodution1TheaterOnly
                 RAISERROR ('La producción ya pertenece a otro teatro',16,1)
                 ROLLBACK TRAN
             END;
+
+
+            

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from 'src/app/database.service';
 import { AdminInfoService } from '../admin-info.service';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-sys-adim-login',
@@ -13,16 +14,24 @@ export class SysAdimLoginComponent implements OnInit {
   @Input() password: string;
   loginState: string;
 
-  constructor(private database: DatabaseService,private adminService: AdminInfoService) { }
+  constructor(private database: DatabaseService,private adminService: AdminInfoService,private encryptor: EncrDecrServiceService) { }
 
   ngOnInit(): void {
   }
 
   async checkLogin(){
-    let state = await this.database.checkSysAdmin(this.username,this.password);
+
+    debugger;
+
+    let encrypted = this.encryptor.set(this.password);
+
+    console.log(encrypted);
+
+    let state = await this.database.checkSysAdmin(this.username,encrypted);
     if(state[0]['']){
       let adminInfo = await this.database.getSysAdminInfo(this.username);
       this.adminService.sysAdminName = adminInfo[0].EmployeeName;
+      this.adminService.sysAdminID = adminInfo[0].ID;
       this.loginState = 'logged';
     }
     else{

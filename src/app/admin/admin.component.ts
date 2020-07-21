@@ -11,6 +11,7 @@ export class AdminComponent implements OnInit {
   refreshed: boolean;
   adminName: string;
   theaterName: string;
+  theaterID: string;
 
   constructor(private adminService: AdminInfoService) {}
 
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit {
 
     this.adminName = this.adminService.adminName;
     this.theaterName = this.adminService.theaterName;
+    this.theaterID = this.adminService.theaterID;
   }
 
 

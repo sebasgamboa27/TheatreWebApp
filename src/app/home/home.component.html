@@ -1,4 +1,4 @@
-<app-barra-principal></app-barra-principal>
+<app-barra-principal (employee)="theatreSelector.employeeRestrictTheaters()"></app-barra-principal>
 
-<app-theatre-selector (select)="cartelera.displayMovies($event.ID)"></app-theatre-selector>
+<app-theatre-selector #theatreSelector (select)="cartelera.displayMovies($event.ID)"></app-theatre-selector>
 <app-cartelera #cartelera></app-cartelera>

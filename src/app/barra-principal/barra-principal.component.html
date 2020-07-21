@@ -11,8 +11,10 @@
       <button type="button" (click)="sysadminLogin.show()" class="btn btn-light">Administrador de Sistema</button>
     </div>
   </div>
+  <span *ngIf="loginState" class="badge badge-pill badge-info"><i class="fas fa-user"></i> {{employeeName}}
+  </span>
 </nav>
 
-<app-empleado-login #empleadoModal></app-empleado-login>
+<app-empleado-login #empleadoModal (state)="changeState($event)"></app-empleado-login>
 <app-theater-admin-login #adminLogin></app-theater-admin-login>
 <app-sys-adim-login #sysadminLogin></app-sys-adim-login>

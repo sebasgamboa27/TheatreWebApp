@@ -1,12 +1,8 @@
 <form>
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group md-6">
       <label for="Nombre">Nombre</label>
       <input type="Nombre" [(ngModel)]="Nombre" name="Nombre" class="form-control" id="Nombre">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="TheaterID">ID Teatro</label>
-      <input type="TheaterID" [(ngModel)]="TheaterID" name="TheaterID" class="form-control" id="TheaterID">
     </div>
   </div>
   <div class="form-row">
@@ -22,7 +18,12 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="Sexo">Sexo</label>
-      <input type="Sexo" [(ngModel)]="Sexo" name="Sexo" class="form-control" id="Sexo">
+      <select [(ngModel)]="Sexo" name="Sexo" id="Sexo" class="form-control">
+        <option selected>...</option>
+        <option>M</option>
+        <option>F</option>
+        <option>N</option>
+      </select>
     </div>
     <div class="form-group col-md-6">
       <label for="Direccion">Direccion</label>
