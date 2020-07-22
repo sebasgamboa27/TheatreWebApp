@@ -554,5 +554,11 @@ CREATE PROCEDURE uspGetAuthenticationInfo
     
 go
 
+------- Grant users procedures SQL Query------------
+
+USE TheatreApp
+GRANT EXECUTE ON OBJECT :: [dbo].[<Procedure>]
+    TO client
+
 
             

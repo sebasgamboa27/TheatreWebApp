@@ -5,8 +5,8 @@ const sql = require('mssql');
 const { ESRCH } = require('constants');
 const app = express();
 
-let user = 'SA';
-let password = '<B4b0rsh>';
+let user = 'client';
+let password = 'publicView1234';
 let dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
 
 app.use(cors());
@@ -14,13 +14,13 @@ app.use(bodyParser.json());
 
 app.get('/getMovies', async function (req, res) {
   await sql.connect(dbConnString);
-  const result = await sql.query('EXEC uspProductionsRead');  //Sustituir por EXEC uspProductionsRead
+  const result = await sql.query('EXEC uspProductionsRead');  
   res.send(result.recordset);
 });
 
 app.get('/getTheatres', async function (req, res) {
   await sql.connect(dbConnString);
-  const result = await sql.query('EXEC uspTheatersRead');   //Sustituir por EXEC uspTheatersRead
+  const result = await sql.query('EXEC uspTheatersRead');  
   res.send(result.recordset);
 });
 
@@ -29,7 +29,7 @@ app.post('/getMoviesbyTheatre', async function (req, res) {
   const ID = req.body.ID;
   
   const result = await sql.query(`
-  EXEC uspGetMoviesByTheater @THEATERID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
+  EXEC uspGetMoviesByTheater @THEATERID = ${ ID }`);                
 
   res.send(result.recordset);
 });
@@ -39,7 +39,7 @@ app.post('/getPresentationsByMovie', async function (req, res) {
   const ID = req.body.ID;
   
   const result = await sql.query(`
-  EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }`);      //Sustituir por EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }
+  EXEC uspGetPresentationsByProductions @PRODUCTIONID = ${ ID }`);     
 
   res.send(result.recordset);
 });
@@ -50,7 +50,7 @@ app.post('/getBlocksbyMovie', async function (req, res) {
   
   const result = await sql.query(`
   EXEC uspGetBlocksByProduction @PRODUCTIONID = ${ productionID }`);
-                                                //Sustituir por EXEC uspGetBlocksByProduction @PRODUCTIONID = ${ productionID }
+                                                
   res.send(result.recordset);
 });
 
@@ -59,7 +59,7 @@ app.post('/getSeatsbyBlock', async function (req, res) {
   const BlockID = req.body.BlockID;
   
   const result = await sql.query(`
-  EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }`);  //Sustituir por EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }
+  EXEC uspGetSeatsByBlock @BLOCKID = ${ BlockID }`);   
 
   res.send(result.recordset);
 });
@@ -71,7 +71,6 @@ app.post('/getOccupiedSeats', async function (req, res) {
   
   const result = await sql.query(`
   EXEC uspGetOccupiedSeats @BLOCKID = ${ BlockID },@PresentationID = ${ PresentationID }`);
-                          //Sustituir por EXEC uspGetOccupiedSeats @BLOCKID = ${ BlockID },@PresentationID = ${ PresentationID }
   res.send(result.recordset);
 });
 
@@ -83,7 +82,6 @@ app.post('/getPricebySeat', async function (req, res) {
   
   const result = await sql.query(`
   EXEC uspGetPriceBySeat @BLOCKID = ${ BlockID } ,@SEATID = ${ SeatID }`);
-        //Sustituir por EXEC uspGetPriceBySeat @BLOCKID = ${ BlockID } ,@SEATID = ${ SeatID }
   res.send(result.recordset);
 });
 
@@ -95,7 +93,6 @@ app.post('/insertReceipt', async function (req, res) {
   
   const result = await sql.query(`
   EXEC uspReceiptsInsert @Date = ${ Date } ,@CODE =${ ApprobationCode } ,@CLIENTID= ${ ClientID }`);
-          // Sustituir por EXEC uspReceiptsInsert @Date = ${ Date } ,@CODE =${ ApprobationCode } ,@CLIENTID= ${ ClientID }
   res.send(result.recordset);
 });
 
@@ -154,6 +151,9 @@ app.post('/checkEmployeeLogin', async function (req, res) {
     const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 2`);
     console.log(info.recordset[0].Username);
     console.log(info.recordset[0].Password);
+    user = info.recordset[0].Username;
+    password = info.recordset[0].Password;
+    dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`
   }
 
   res.send(result.recordset);
@@ -211,6 +211,8 @@ app.post('/getSysAdminInfo', async function (req, res) {
 app.post('/getEmployeeInfo', async function (req, res) {
   await sql.connect(dbConnString);
   const Username = req.body.Username;
+
+  console.log(dbConnString);
    
   const result = await sql.query(`EXEC getOfficeEmployeesInfo @USERNAME = ${ Username }`);
   res.send(result.recordset);
@@ -336,7 +338,7 @@ app.post('/getCinemaListings', async function (req, res) {
   const ID = req.body.ID;
 
   const result = await sql.query(`
-  EXEC uspProductionsForPublic @THEATERID = ${ ID }`);                //Sustituir por EXEC uspGetMoviesByTheater @THEATERID = ${ ID }
+  EXEC uspProductionsForPublic @THEATERID = ${ ID }`);               
 
   res.send(result.recordset);
 });

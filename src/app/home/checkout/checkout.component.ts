@@ -56,13 +56,24 @@ export class CheckoutComponent implements OnInit {
     this.getAmountToPay(this.tickets);
   }
 
-  makePayment(){
+  async makePayment(){
     const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1;
     console.log(randomNumber);
 
     if (randomNumber % 2 === this.priceToPay % 2){
       this.cardRejected = false;
       this.receiptState = !this.receiptState;
+
+      const clientExists = await this.database.clientCheck(this.Email);
+      let clientID;
+
+      if (clientExists[0]['']){
+        clientID = await this.database.clientByEmail(this.Email);
+      }
+      else{
+        clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
+      }
+
       this.tickets.forEach(async seat => {
         const date = new Date();
         const year = date.getFullYear().toString();
@@ -70,25 +81,13 @@ export class CheckoutComponent implements OnInit {
         const day = date.getDate().toString();
 
         const newDate = '\'' + year + '-' + month + '-' + day + '\'';
+        let apCode = Math.floor(Math.random() * (+90000 - +1)) + +1; 
+        let code = apCode.toString();
 
-        const clientExists = await this.database.clientCheck(this.Email);
-        debugger;
+        await this.database.setUpBooking(newDate,code,clientID[0].ID,this.presentation.PresentationID,seat.SeatID);
 
-        if (clientExists[0][''] || this.alreadyCreatedClient){
-          const clientID = await this.database.clientByEmail(this.Email);
-          const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
-          console.log(receiptID[0].ID);
-          await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
-        }
-        else{
-          debugger;
-          this.alreadyCreatedClient = true;
-          const clientID = await this.database.insertClient(this.Nombre, this.Email, this.Telefono);
-          const receiptID = await this.database.insertReceipt(newDate, clientID[0].ID);
-          console.log(receiptID[0].ID);
-          await this.database.insertBookings(this.presentation.PresentationID, receiptID[0].ID, seat.SeatID);
-        }
       });
+    
     }
     else{
       this.cardRejected = true;

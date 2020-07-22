@@ -35,7 +35,6 @@ export class EmpleadoLoginComponent implements OnInit {
     if(state[0]['']){
       this.loginState = 'logged';
       this.employeeService.changeLoginState();
-      debugger;
       let info = await this.database.employeeInfoAux(this.username);
       this.employeeService.employeeName = info[0].EmployeeName;
       this.employeeService.employeeTheaterID = info[0].TheaterID;
