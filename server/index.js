@@ -7,7 +7,7 @@ const app = express();
 
 let user = 'client';
 let password = 'publicView1234';
-let dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
+let dbConnString = `mssql://${user}:${password}@localhost/TeatrosTP2`;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -153,7 +153,7 @@ app.post('/checkEmployeeLogin', async function (req, res) {
     console.log(info.recordset[0].Password);
     user = info.recordset[0].Username;
     password = info.recordset[0].Password;
-    dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`
+    dbConnString = `mssql://${user}:${password}@localhost/TeatrosTP2`
   }
 
   res.send(result.recordset);
@@ -193,6 +193,7 @@ app.post('/checkSysAdmin', async function (req, res) {
 
 
 app.post('/getAdminInfo', async function (req, res) {
+  await sql.close();
   await sql.connect(dbConnString);
   const Username = req.body.Username;
    
@@ -201,6 +202,7 @@ app.post('/getAdminInfo', async function (req, res) {
 });
 
 app.post('/getSysAdminInfo', async function (req, res) {
+  await sql.close();
   await sql.connect(dbConnString);
   const Username = req.body.Username;
    
@@ -209,11 +211,10 @@ app.post('/getSysAdminInfo', async function (req, res) {
 });
 
 app.post('/getEmployeeInfo', async function (req, res) {
+  await sql.close();
+  console.log(dbConnString);
   await sql.connect(dbConnString);
   const Username = req.body.Username;
-
-  console.log(dbConnString);
-   
   const result = await sql.query(`EXEC getOfficeEmployeesInfo @USERNAME = ${ Username }`);
   res.send(result.recordset);
 });
