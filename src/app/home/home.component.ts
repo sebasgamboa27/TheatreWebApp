@@ -10,8 +10,16 @@ export class HomeComponent implements OnInit {
 
   constructor(private database: DatabaseService) { }
 
-  async ngOnInit(): Promise<void> {
-    await this.database.changeConnection();
+  ngOnInit(): void {
+    this.loadConnection();
+  }
+
+  async loadConnection(){
+    try {
+      await this.database.changeConnection();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }

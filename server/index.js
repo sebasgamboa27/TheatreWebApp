@@ -367,7 +367,11 @@ app.post('/setUpBooking', async function (req, res) {
 });
 
 app.post('/changeConnection', async function (req, res) {
-  sql.close();
+  try {
+    await sql.close();
+  } catch (error) {
+    console.log("Already closed");
+  }
   user = 'client';
   password = 'publicView1234';
   dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
