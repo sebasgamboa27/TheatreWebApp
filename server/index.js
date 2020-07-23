@@ -7,7 +7,7 @@ const app = express();
 
 let user = 'client';
 let password = 'publicView1234';
-let dbConnString = `mssql://${user}:${password}@localhost/TeatrosTP2`;
+let dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -153,13 +153,14 @@ app.post('/checkEmployeeLogin', async function (req, res) {
     console.log(info.recordset[0].Password);
     user = info.recordset[0].Username;
     password = info.recordset[0].Password;
-    dbConnString = `mssql://${user}:${password}@localhost/TeatrosTP2`
+    dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`
   }
 
   res.send(result.recordset);
 });
 
 app.post('/checkTheaterAdmin', async function (req, res) {
+  console.log(dbConnString);
   await sql.connect(dbConnString);
   const Username = req.body.Username;
   const Password = req.body.Password;
@@ -170,6 +171,9 @@ app.post('/checkTheaterAdmin', async function (req, res) {
     const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 3`);
     console.log(info.recordset[0].Username);
     console.log(info.recordset[0].Password);
+    user = info.recordset[0].Username;
+    password = info.recordset[0].Password;
+    dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`
   }
 
   res.send(result.recordset);
@@ -186,6 +190,9 @@ app.post('/checkSysAdmin', async function (req, res) {
     const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 4`);
     console.log(info.recordset[0].Username);
     console.log(info.recordset[0].Password);
+    user = info.recordset[0].Username;
+    password = info.recordset[0].Password;
+    dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`
   }
 
   res.send(result.recordset);
@@ -203,6 +210,7 @@ app.post('/getAdminInfo', async function (req, res) {
 
 app.post('/getSysAdminInfo', async function (req, res) {
   await sql.close();
+  console.log(dbConnString);
   await sql.connect(dbConnString);
   const Username = req.body.Username;
    
@@ -356,4 +364,13 @@ app.post('/setUpBooking', async function (req, res) {
   const result = await sql.query(`EXEC uspSetABooking @DATE = ${ Date } ,@CODE = '${ Code }', @CLIENTID = '${ ClientID }',
   @PRESENTATIONID = ${ PresentationID }, @SEATID = '${ SeatID }'`);
   res.send(result.recordset);
+});
+
+app.post('/changeConnection', async function (req, res) {
+  sql.close();
+  user = 'client';
+  password = 'publicView1234';
+  dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
+  console.log(dbConnString);
+
 });

@@ -161,5 +161,8 @@ export class DatabaseService {
 
   }
 
+  async changeConnection() {
+    return await this.http.post<any>('http://localhost:3000/changeConnection',{}).toPromise();
+  }
   
 }
