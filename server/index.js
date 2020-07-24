@@ -165,7 +165,7 @@ app.post('/checkTheaterAdmin', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
+  const result = await sql.query(`EXEC uspAdminAuthentication @USERNAME = '${ Username }' ,@PASSWORD = '${ Password }'`);
 
   if(result.recordset[0]['']){
     const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 3`);
@@ -184,7 +184,7 @@ app.post('/checkSysAdmin', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspSysAdminAuthentication @USERNAME = ${ Username } ,@PASSWORD = '${ Password }'`);
+  const result = await sql.query(`EXEC uspSysAdminAuthentication @USERNAME = '${ Username }' ,@PASSWORD = '${ Password }'`);
 
   if(result.recordset[0]['']){
     const info = await sql.query(`EXEC uspGetAuthenticationInfo @ID = 4`);
@@ -204,7 +204,7 @@ app.post('/getAdminInfo', async function (req, res) {
   await sql.connect(dbConnString);
   const Username = req.body.Username;
    
-  const result = await sql.query(`EXEC getAdminInfo @USERNAME = ${ Username }`);
+  const result = await sql.query(`EXEC getAdminInfo @USERNAME = '${ Username }'`);
   res.send(result.recordset);
 });
 
@@ -214,7 +214,7 @@ app.post('/getSysAdminInfo', async function (req, res) {
   await sql.connect(dbConnString);
   const Username = req.body.Username;
    
-  const result = await sql.query(`EXEC getSysAdminInfo @USERNAME = ${ Username }`);
+  const result = await sql.query(`EXEC getSysAdminInfo @USERNAME = '${ Username }'`);
   res.send(result.recordset);
 });
 
@@ -223,7 +223,7 @@ app.post('/getEmployeeInfo', async function (req, res) {
   console.log(dbConnString);
   await sql.connect(dbConnString);
   const Username = req.body.Username;
-  const result = await sql.query(`EXEC getOfficeEmployeesInfo @USERNAME = ${ Username }`);
+  const result = await sql.query(`EXEC getOfficeEmployeesInfo @USERNAME = '${ Username }'`);
   res.send(result.recordset);
 });
 
@@ -258,7 +258,7 @@ app.post('/insertClient', async function (req, res) {
   const Email = req.body.Email;
   const Telefono = req.body.Telefono;
    
-  const result = await sql.query(`EXEC uspInsertClient @NAME = ${ Nombre }, @EMAIL = '${ Email }', @PHONE = ${ Telefono }`);
+  const result = await sql.query(`EXEC uspInsertClient @NAME = '${ Nombre }', @EMAIL = '${ Email }', @PHONE = ${ Telefono }`);
   res.send(result.recordset);
 });
 
@@ -287,7 +287,7 @@ app.post('/insertTheater', async function (req, res) {
   const ClientServicePhone = req.body.ClientServicePhone;
   const TicketOfficePhone = req.body.TicketOfficePhone;
    
-  const result = await sql.query(`EXEC uspTheatersInsert @NAME = ${ Nombre } ,@EMAIL = '${ Email }', @WEBSITE = '${ Website }',
+  const result = await sql.query(`EXEC uspTheatersInsert @NAME = '${ Nombre }' ,@EMAIL = '${ Email }', @WEBSITE = '${ Website }',
   @SPHONE = ${ ClientServicePhone }, @OPHONE = '${ TicketOfficePhone }'`);
   res.send(result.recordset);
 });
@@ -307,7 +307,7 @@ app.post('/insertEmployee', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspEmployeesInsert @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = ${ Name },
+  const result = await sql.query(`EXEC uspEmployeesInsert @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = '${ Name }',
   @BIRTH = ${ Birth }, @SEX = '${ Sex }', @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
   @PERSONALP = ${ PersonalP }, @HOMEP = ${ HomeP }, @OTHERP = ${ OtherP },
   @USERNAME = ${ Username }, @PASSWORD = '${ Password }'`);
@@ -330,7 +330,7 @@ app.post('/insertAdmins', async function (req, res) {
   const Username = req.body.Username;
   const Password = req.body.Password;
    
-  const result = await sql.query(`EXEC uspInsertAdmins @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = ${ Name },
+  const result = await sql.query(`EXEC uspInsertAdmins @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = '${ Name }',
   @BIRTH = ${ Birth }, @SEX = '${ Sex }', @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
   @PPHONE = ${ PersonalP }, @HPHONE = ${ HomeP }, @OPHONE = ${ OtherP },
   @USERNAME = ${ Username }, @PASSWORD = '${ Password }'`);
