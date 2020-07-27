@@ -80,6 +80,10 @@ export class DatabaseService {
     return await this.http.post<any>('http://localhost:3000/insertPresentation',{Hour:Hour,Date:Date,ProductionID:ProductionID}).toPromise();
   }
 
+  async presentationsByDate(ProductionID: string, startDate:string,endDate:string) {
+    return await this.http.post<any>('http://localhost:3000/presentationsByDate',{ProductionID:ProductionID,startDate:startDate,endDate:endDate}).toPromise();
+  }
+
   async insertPrice(ProductionID: string, BlockID:string,Price:string) {
     return await this.http.post<any>('http://localhost:3000/insertPrice',{ProductionID:ProductionID,BlockID:BlockID,Price:Price}).toPromise();
   }

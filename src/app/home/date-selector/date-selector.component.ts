@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 import { Presentation } from 'src/app/interfaces/presentation';
 import { Movie } from 'src/app/interfaces/movie';
 import { DatabaseService } from 'src/app/database.service';
-import { IHash } from 'src/app/interfaces/ihash';
 
 @Component({
   selector: 'app-date-selector',
@@ -19,6 +18,9 @@ export class DateSelectorComponent implements OnInit,OnChanges {
   @Output() selected = new EventEmitter<Presentation>();
   @Output() emitPresentation = new EventEmitter<Presentation>();
 
+  @Input() startDate: string;
+  @Input() endDate: string;
+
   constructor(private database: DatabaseService) { }
 
   async ngOnInit(): Promise<void> {
@@ -26,6 +28,8 @@ export class DateSelectorComponent implements OnInit,OnChanges {
 
   ngOnChanges(){
     if(this.movie){
+      this.startDate='';
+      this.endDate='';
       this.updatePresentations();
     }
   }
@@ -37,7 +41,19 @@ export class DateSelectorComponent implements OnInit,OnChanges {
   }
 
   async updatePresentations(){
-    this.presentations = await this.database.getPresentationsByMovie(this.movie.ID);
+
+    debugger;
+
+    this.presentations = [];
+    this.orderedTimes = [];
+  
+    if(this.startDate!='' && this.endDate!=''){
+      this.presentations = await this.database.presentationsByDate(this.movie.ID,this.startDate,this.endDate);
+    }
+    else{
+      this.presentations = await this.database.getPresentationsByMovie(this.movie.ID);
+    }
+
     if (this.presentations.length === 0) return;
 
     let day = new Date(this.presentations[0].Date).getDay();
@@ -61,6 +77,4 @@ export class DateSelectorComponent implements OnInit,OnChanges {
 
     this.orderedTimes = newPresentations;
   }
-
-
 }

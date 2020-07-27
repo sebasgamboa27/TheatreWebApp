@@ -50,8 +50,8 @@
   </div>
   <div class="form-row">
     <div class="col-md-6 mb-3">
-      <label for="validationServer03">Numero de Tarjeta</label>
-      <input type="text" class="form-control" id="validationServer03" required>
+      <label for="num">Numero de Tarjeta</label>
+      <input type="num" [(ngModel)]="num" name="num" class="form-control" id="num" required>
 
       <div class="invalid-feedback">
         Ingrese una tarjeta valida.
@@ -104,8 +104,8 @@
       </div>
     </div>
     <div class="col-md-3 mb-3">
-      <label for="validationServer05">Codigo de Seguridad</label>
-      <input type="text" class="form-control" id="validationServer05" required>
+      <label for="cvv">Codigo de Seguridad</label>
+      <input type="cvv" [(ngModel)]="cvv" name="cvv" class="form-control" id="cvv" required>
 
       <div class="invalid-feedback">
         Ingrese un codigo valida.

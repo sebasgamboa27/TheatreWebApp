@@ -1,3 +1,16 @@
+<div class="col-md-6 mb-3">
+  <label for="startDate">Start Date</label>
+  <input type="startDate" [(ngModel)]="startDate" name="startDate" class="form-control" id="startDate">
+</div>
+<div class="col-md-6 mb-3">
+  <label for="endDate">End Date</label>
+  <input type="endDate" [(ngModel)]="endDate" name="endDate" class="form-control" id="endDate">
+</div>
+<button class="btn btn-primary"
+  (click)="updatePresentations()"
+  type="button"
+  >Cambiar Fechas</button>
+  <hr>
 <div *ngFor="let day of orderedTimes" class="mb-3">
   <h5>
     {{ day[0].Date | date:'EEEE, MMMM d' }}

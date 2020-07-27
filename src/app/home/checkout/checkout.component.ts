@@ -24,6 +24,8 @@ export class CheckoutComponent implements OnInit {
   @Input() Email: string;
   @Input() Telefono: string;
   alreadyCreatedClient: boolean;
+  @Input() num: number;
+  @Input() cvv: number;
 
   constructor(private database: DatabaseService, private employeeService: EmployeeServiceService){}
 
@@ -57,10 +59,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   async makePayment(){
-    const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1;
-    console.log(randomNumber);
+    //const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1;
+    //console.log(randomNumber);
 
-    if (randomNumber % 2 === this.priceToPay % 2){
+    if (this.num % 2 === this.cvv % 2){
       this.cardRejected = false;
       this.receiptState = !this.receiptState;
 
