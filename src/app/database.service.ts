@@ -104,6 +104,10 @@ export class DatabaseService {
     return await this.http.post<any>('http://localhost:3000/checkTheaterAdmin',{Username:username,Password:password}).toPromise();
   }
 
+  async insertBlock(BlockName: string, TheaterID:number) {
+    return await this.http.post<any>('http://localhost:3000/insertBlock',{BlockName:BlockName,TheaterID:TheaterID}).toPromise();
+  }
+
   async getAdminInfo(username: string) {
     return await this.http.post<any>('http://localhost:3000/getAdminInfo',{Username:username}).toPromise();
   }

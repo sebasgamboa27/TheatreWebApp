@@ -1,0 +1,15 @@
+<div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split mb-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{ selectedTheatre?.TheaterName }}
+  </button>
+  <div class="dropdown-menu">
+    <button *ngFor="let theatre of theatres" class="dropdown-item" type="button" (click)="selectTheatre(theatre)">{{ theatre.TheaterName }}</button>
+  </div>
+</div>
+<form>
+  <div class="form-row mb-3">
+    <label for="Nombre_Bloque">Nombre Bloque</label>
+    <input type="Nombre_Bloque" [(ngModel)]="Nombre_Bloque" name="Nombre_Bloque" class="form-control" id="Nombre_Bloque">
+  </div>
+  <button type="button" (click)="insertBlock()" class="btn btn-success mt-3">Crear Bloque</button>
+</form>

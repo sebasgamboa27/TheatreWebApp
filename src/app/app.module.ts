@@ -29,6 +29,7 @@ import { SysAdminComponent } from './admin/sys-admin/sys-admin.component';
 import { TeatroEmployeeFormComponent } from './admin/teatro-employee-form/teatro-employee-form.component';
 import { TeatroFormComponent } from './admin/teatro-form/teatro-form.component';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
+import { BloqueFormComponent } from './admin/bloque-form/bloque-form.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
     SysAdimLoginComponent,
     SysAdminComponent,
     TeatroEmployeeFormComponent,
-    TeatroFormComponent
+    TeatroFormComponent,
+    BloqueFormComponent
   ],
   imports: [
     BrowserModule,

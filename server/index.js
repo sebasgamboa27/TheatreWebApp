@@ -152,6 +152,15 @@ app.post('/updateProductionState', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/insertBlock', async function (req, res) {
+  await sql.connect(dbConnString);
+  const TheaterID = req.body.TheaterID;
+  const BlockName = req.body.BlockName;
+   
+  const result = await sql.query(`EXEC uspInsertBlock @NOMBRE = '${ BlockName }', @THEATERID = ${ TheaterID }`);
+  res.send(result.recordset);
+});
+
 app.post('/checkEmployeeLogin', async function (req, res) {
   await sql.connect(dbConnString);
   const Username = req.body.Username;
