@@ -62,7 +62,7 @@ export class CheckoutComponent implements OnInit {
     //const randomNumber = Math.floor(Math.random() * (+30 - +1)) + +1;
     //console.log(randomNumber);
 
-    if (this.num % 2 === this.cvv % 2){
+    if (this.priceToPay % 2 != this.cvv % 2){
       this.cardRejected = false;
       this.receiptState = !this.receiptState;
 

@@ -115,7 +115,7 @@ app.post('/insertPresentation', async function (req, res) {
   const ProductionID = req.body.ProductionID;
   
   const result = await sql.query(`
-  EXEC uspPresentationsInsert @HOUR = ${ Hour }, @DATE = '${ Date }', @PRESENTATIONID = ${ ProductionID }`);
+  EXEC uspPresentationsInsert @HOUR = '${ Hour }', @DATE = '${ Date }', @PRESENTATIONID = ${ ProductionID }`);
   res.send(result.recordset);
 });
 
@@ -348,7 +348,7 @@ app.post('/insertEmployee', async function (req, res) {
    
   const result = await sql.query(`EXEC uspEmployeesInsert @THEATERID = ${ TheaterID } ,@ID = ${ ID }, @NAME = '${ Name }',
   @BIRTH = '${ Birth }', @SEX = '${ Sex }', @ADDRESS = '${ Address }', @EMAIL = '${ Email }',
-  @PERSONALP = ${ PersonalP }, @HOMEP = ${ HomeP }, @OTHERP = ${ OtherP },
+  @PERSONALP = '${ PersonalP }', @HOMEP = '${ HomeP }', @OTHERP = '${ OtherP }',
   @USERNAME = '${ Username }', @PASSWORD = '${ Password }'`);
   res.send(result.recordset);
 });
