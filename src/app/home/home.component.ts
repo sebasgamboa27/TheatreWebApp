@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit {
     this.loadConnection();
   }
 
-  loadConnection(){
-    this.database.changeConnection();
+  async loadConnection(){
+    await this.database.changeConnection().catch();
   }
 
 }

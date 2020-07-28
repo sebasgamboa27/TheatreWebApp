@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col-4">
+  <div class="col-4 mr-4">
     <div class="list-group" id="list-tab" role="tablist">
-      <div *ngFor="let production of productions" class="dropdown">
+      <div *ngFor="let production of productions" class="dropdown mr-4">
         <button class="btn btn-info dropdown-toggle mb-3" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
         (click)="setCurrentProduction(production.ID)">
           {{production.Name}}
@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="col-8">
+  <div class="col-8 ml-3">
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="dropdownMenu2">
         <span *ngIf="displayState==='presentation'"> <app-presentation-form [productionID]="currentProduction"></app-presentation-form> </span>

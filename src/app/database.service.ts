@@ -108,6 +108,16 @@ export class DatabaseService {
     return await this.http.post<any>('http://localhost:3000/insertBlock',{BlockName:BlockName,TheaterID:TheaterID}).toPromise();
   }
 
+  async blocksByTheater(TheaterID:number) {
+    return await this.http.post<any>('http://localhost:3000/blocksByTheater',{TheaterID:TheaterID}).toPromise();
+  }
+
+
+  async insertRow(Row: string, BlockID:number,Total:Number) {
+    return await this.http.post<any>('http://localhost:3000/insertRow',{Row:Row,BlockID:BlockID,Total:Total}).toPromise();
+  }
+
+
   async getAdminInfo(username: string) {
     return await this.http.post<any>('http://localhost:3000/getAdminInfo',{Username:username}).toPromise();
   }
@@ -171,7 +181,7 @@ export class DatabaseService {
 
   async changeConnection() {
     try {
-      return await this.http.post<any>('http://localhost:3000/changeConnection',{}).toPromise();
+      return await this.http.post<any>('http://localhost:3000/changeConnection',{}).toPromise().catch();
     } catch (error) {
       console.log(error);
     }

@@ -6,10 +6,39 @@
     <button *ngFor="let theatre of theatres" class="dropdown-item" type="button" (click)="selectTheatre(theatre)">{{ theatre.TheaterName }}</button>
   </div>
 </div>
+
 <form>
   <div class="form-row mb-3">
     <label for="Nombre_Bloque">Nombre Bloque</label>
     <input type="Nombre_Bloque" [(ngModel)]="Nombre_Bloque" name="Nombre_Bloque" class="form-control" id="Nombre_Bloque">
   </div>
-  <button type="button" (click)="insertBlock()" class="btn btn-success mt-3">Crear Bloque</button>
+  <button type="button" (click)="insertBlock()" class="btn btn-success mt-3 md-3">Crear Bloque</button>
+</form>
+
+<div class="dropdown md-3 mt-3">
+  <button class="btn btn-secondary dropdown-toggle mb-2" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+    <span *ngIf="!selectedBlock">Seleccione un Bloque</span>
+    {{ selectedBlock?.BlockName }} 
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <button class="dropdown-item md-3" type="button"
+    *ngFor="let block of blocks"
+    (click)="updateSelectedBlock(block)"
+    >{{ block.BlockName }}</button>
+  </div>
+</div>
+
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Fila">Fila</label>
+      <input type="Fila" [(ngModel)]="Fila" name="Fila" class="form-control" id="Fila">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Numero">Numero</label>
+      <input type="Numero" [(ngModel)]="Numero" name="Numero" class="form-control" id="Numero">
+    </div>
+  </div>
+  <button type="button" class="btn btn-success"
+  (click)="insertRow()">Insertar Fila</button>
 </form>

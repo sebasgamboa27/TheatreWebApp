@@ -161,6 +161,15 @@ app.post('/insertBlock', async function (req, res) {
   res.send(result.recordset);
 });
 
+app.post('/blocksByTheater', async function (req, res) {
+  await sql.connect(dbConnString);
+  const TheaterID = req.body.TheaterID;
+   
+  const result = await sql.query(`EXEC uspGetBlocksByTheater @THEATERID = ${ TheaterID }`);
+  res.send(result.recordset);
+});
+
+
 app.post('/checkEmployeeLogin', async function (req, res) {
   await sql.connect(dbConnString);
   const Username = req.body.Username;
@@ -284,6 +293,15 @@ app.post('/insertClient', async function (req, res) {
 });
 
 
+app.post('/insertRow', async function (req, res) {
+  await sql.connect(dbConnString);
+  const Row = req.body.Row;
+  const BlockID = req.body.BlockID;
+  const Total = req.body.Total;
+   
+  const result = await sql.query(`EXEC uspSeatInsertRow @ROW = ${ Row }, @BLOCKID = ${ BlockID }, @TOTAL = ${ Total }`);
+  res.send(result.recordset);
+});
 
 app.post('/insertProduction', async function (req, res) {
   await sql.connect(dbConnString);
@@ -388,14 +406,13 @@ app.post('/setUpBooking', async function (req, res) {
 });
 
 app.post('/changeConnection', async function (req, res) {
-  try {
-    await sql.close();
-  } catch (error) {
-    console.log("Already closed");
-  }
+  await sql.close().catch();
   user = 'client';
   password = 'publicView1234';
   dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
   console.log(dbConnString);
+
+  await sql.connect(dbConnString);
+  res.send('connected');
 
 });
