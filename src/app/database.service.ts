@@ -181,9 +181,10 @@ export class DatabaseService {
 
   async changeConnection() {
     try {
-      return await this.http.post<any>('http://localhost:3000/changeConnection',{}).toPromise().catch();
+      return await this.http.post<any>('http://localhost:3000/changeConnection',{}).toPromise();
     } catch (error) {
       console.log(error);
+      console.log('error en database service');
     }
   }
   

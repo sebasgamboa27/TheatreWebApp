@@ -406,13 +406,22 @@ app.post('/setUpBooking', async function (req, res) {
 });
 
 app.post('/changeConnection', async function (req, res) {
-  await sql.close().catch();
+  debugger;
+  try {
+    await sql.close();
+  } catch (error) {
+    console.log(error);
+    console.log('erroooor');
+  }
   user = 'client';
   password = 'publicView1234';
   dbConnString = `mssql://${user}:${password}@localhost/TheatreApp`;
   console.log(dbConnString);
 
-  await sql.connect(dbConnString);
-  res.send('connected');
+  try {
+    await sql.connect(dbConnString);
+  } catch (error) {
+    console.log('error al conectarse');
+  }
 
 });

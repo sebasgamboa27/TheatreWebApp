@@ -15,7 +15,11 @@ export class HomeComponent implements OnInit {
   }
 
   async loadConnection(){
-    await this.database.changeConnection().catch();
+    try {
+      await this.database.changeConnection();
+    } catch (error) {
+      console.log('error en home');
+    }
   }
 
 }
